@@ -1,0 +1,144 @@
+/* Configuração geral */
+body {
+    font-family: 'Inria-Sans';
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Header */
+.header {
+    background-color: #22202A;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.title {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 24px;
+    margin-left: 10px;
+    color: #967D60;
+}
+
+.auth-buttons button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login {
+    background-color: #967D60;
+    color: 22202A;
+}
+
+.register {
+    background-color: #473D3B;
+    color: 22202A;
+}
+
+/* Navbar */
+.navbar {
+    font-size: 20px;
+    background-color: #473D3B;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Container Principal */
+.container h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 30px 0;
+}
+
+/* Seções de seleção */
+.selection-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    width: 80%; /* Ajusta a largura total */
+    max-width: 1000px; /* Define um limite máximo */
+    margin: 0 auto; /* Centraliza na tela */
+    padding: 20px; /* Adiciona um espaçamento interno */
+}
+
+.selection-box {
+    background-color: #22202A;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+}
+
+.selection-box h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.buttons button {
+    background-color: white;
+    color: 22202A;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
+/* Botão Procurar */
+.search-button {
+    background-color: 22202A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Rodapé */
+.footer {
+    background-color: #22202A;
+    color: white;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+.footer img {
+    width: 40px;
+    margin-bottom: 10px;
+}
