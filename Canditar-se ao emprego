@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Recursos Humanos</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400&display=swap">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="rh-logo.png" alt="Logo RH">
+            <span>For all</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#pagina-principal">Página Principal</a></li>
+                <li><a href="#sobre-nos">Sobre Nós</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section>
+            <h1>Título de Emprego</h1>
+            <h2>Responsabilidades</h2>
+            <p>Descrição das responsabilidades</p>
+            <h2>Competências</h2>
+            <p>Descrição das competências</p>
+        </section>
+        <section>
+            <h2>Benefícios</h2>
+            <p>Lista de benefícios</p>
+            <h2>Área</h2>
+            <p>Setor de atuação</p>
+        </section>
+        <section>
+            <h2>Localização</h2>
+            <p>Endereço</p>
+        </section>
+        <section>
+            <h2>Ordenado</h2>
+            <p>Faixa salarial</p>
+            <h2>Nome da Empresa</h2>
+            <p>Nome da organização</p>
+        </section>
+        <section>
+            <h2>Referência</h2>
+            <p>Código da vaga</p>
+        </section>
+        <section>
+            <button class="apply">Candidatar-se</button>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Gestão de Recursos Humanos. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
