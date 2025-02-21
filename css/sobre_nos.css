@@ -1,0 +1,387 @@
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+      "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+      "Source Han Sans CN", sans-serif;
+  }
+   
+  .main-container {
+    overflow: hidden;
+  }
+   
+  .main-container,
+  .main-container * {
+    box-sizing: border-box;
+  }
+   
+  input,
+  select,
+  textarea,
+  button {
+    outline: 0;
+  }
+   
+  .main-container {
+    position: relative;
+    width: 1280px;
+    height: 832px;
+    margin: 0 auto;
+    background: #ffffff;
+    overflow: hidden;
+  }
+  .rectangle {
+    position: absolute;
+    width: 1280px;
+    height: 76px;
+    top: -132px;
+    left: 0;
+    background: url(./assets/images/40c7e1f9-3560-49a4-b1d6-ec4ef5cd38c8.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 16;
+  }
+  .rhlogo-removebg-preview {
+    position: absolute;
+    width: 60.878px;
+    height: 61px;
+    top: -124px;
+    left: 547px;
+    background: url(./assets/images/8bfce4195e7e34b0f63d51e5d6277860c396c43d.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 17;
+  }
+  .for-all {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 48px;
+    top: -118px;
+    left: 618px;
+    color: #967d60;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 47.96px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 18;
+  }
+  .slice {
+    position: absolute;
+    width: 1280px;
+    height: 833px;
+    top: 0;
+    left: 0;
+    z-index: 29;
+  }
+  .rectangle-1 {
+    position: relative;
+    width: 1280px;
+    height: 76px;
+    margin: 0 0 0 0;
+    background: #22202a;
+  }
+  .rh-logo {
+    position: absolute;
+    width: 60.878px;
+    height: 61px;
+    top: 7px;
+    left: 7px;
+    background: url(./assets/images/8bfce4195e7e34b0f63d51e5d6277860c396c43d.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 2;
+  }
+  .for-all-2 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 48px;
+    top: 13px;
+    left: 77px;
+    color: #d9d9d9;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 47.96px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 3;
+  }
+  .rectangle-3 {
+    position: absolute;
+    width: 112px;
+    height: 48px;
+    top: 13px;
+    left: 1032px;
+    cursor: pointer;
+    background: #967d60;
+    border: 1px solid #473d3b;
+    z-index: 8;
+    border-radius: 10px;
+  }
+  .login {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 24px;
+    top: 11px;
+    left: 29px;
+    color: #22202a;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23.98px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 10;
+  }
+  .rectangle-4 {
+    position: absolute;
+    width: 112px;
+    height: 48px;
+    top: 14px;
+    left: 1154px;
+    cursor: pointer;
+    background: #473d3b;
+    border: 1px solid #473d3b;
+    z-index: 7;
+    border-radius: 10px;
+  }
+  .registar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 24px;
+    top: 10px;
+    left: 12px;
+    color: #22202a;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23.98px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 9;
+  }
+  .gestao-recursos-humanos {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 29px;
+    top: 24px;
+    left: 201px;
+    color: #967d60;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.776px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 5;
+  }
+  .rectangle-5 {
+    position: relative;
+    width: 1280px;
+    height: 58px;
+    margin: 0 0 0 0;
+    background: #473d3b;
+    z-index: 1;
+  }
+  .design-removebg-preview {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    top: 12px;
+    left: 37px;
+    background: url(./assets/images/df65be97541df143ad301c8a6d0daba39c9bf871.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 25;
+  }
+  .design-removebg-preview-6 {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    top: 12px;
+    left: 192px;
+    background: url(./assets/images/df65be97541df143ad301c8a6d0daba39c9bf871.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 28;
+  }
+  .pagina-principal {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 24px;
+    top: 17px;
+    left: 231px;
+    color: #d9d9d9;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.98px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 27;
+  }
+  .sobre-nos {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 24px;
+    top: 17px;
+    left: 76px;
+    color: #d9d9d9;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.98px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 24;
+  }
+  .descricao-empresa {
+    display: block;
+    position: relative;
+    height: 29px;
+    margin: 470px 0 0 519px;
+    color: #000000;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.776px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 19;
+  }
+  .email-empresa {
+    display: block;
+    position: relative;
+    height: 29px;
+    margin: 79px 0 0 542px;
+    color: #000000;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.776px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 20;
+  }
+  .rh-logo-7 {
+    position: absolute;
+    width: 347.304px;
+    height: 348px;
+    top: 139px;
+    left: 50%;
+    background: url(./assets/images/8bfce4195e7e34b0f63d51e5d6277860c396c43d.png)
+      no-repeat center;
+    background-size: cover;
+    transform: translate(-50.1%, 0);
+    z-index: 12;
+  }
+  .for-all-8 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 115px;
+    top: 461px;
+    left: calc(50% - 137px);
+    color: #22202a;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 96px;
+    font-weight: 400;
+    line-height: 115px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 4;
+  }
+  .design-sem-nome {
+    position: absolute;
+    width: 57px;
+    height: 57px;
+    top: 495px;
+    left: 446px;
+    background: url(./assets/images/df65be97541df143ad301c8a6d0daba39c9bf871.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 21;
+  }
+  .design-sem-nome-9 {
+    position: absolute;
+    width: 57px;
+    height: 57px;
+    top: 498px;
+    left: 778px;
+    background: url(./assets/images/df65be97541df143ad301c8a6d0daba39c9bf871.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 22;
+  }
+  .gestao-recursos-humanos-a {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 43px;
+    top: 561px;
+    left: calc(50% - 244px);
+    color: #967d60;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 43px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 6;
+  }
+  .rh-logo-b {
+    position: absolute;
+    width: 60.878px;
+    height: 61px;
+    top: 764px;
+    left: 547px;
+    background: url(./assets/images/8bfce4195e7e34b0f63d51e5d6277860c396c43d.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 14;
+  }
+  .for-all-c {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 48px;
+    top: 771px;
+    left: 617.878px;
+    color: #967d60;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 47.96px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 15;
+  }
+  .rectangle-d {
+    position: absolute;
+    width: 1280px;
+    height: 76px;
+    top: 757px;
+    left: 0;
+    background: url(./assets/images/3d42f523-7786-43f4-8c5a-5b3a5bad2e34.png)
+      no-repeat center;
+    background-size: cover;
+    z-index: 11;
+  }
