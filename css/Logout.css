@@ -1,13 +1,4 @@
-html, body {
-  margin: 0; /* Remove margens padrão */
-  padding: 0; /* Remove preenchimento padrão */
-  height: 100%; /* Faz o body ocupar 100% da altura da tela */
-}
 
-.main-container {
-  width: 100%; /* Ocupar toda a largura da tela */
-  height: 100%; /* Ocupar toda a altura da tela */
-}
     :root {
   --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
@@ -45,7 +36,7 @@ button {
   height: 832px;
   top: 0;
   left: 0;
-  z-index: 40;
+  z-index: 41;
 }
 .rectangle {
   position: relative;
@@ -116,7 +107,7 @@ button {
   background: #473d3b;
   z-index: 5;
 }
-.design-sem-nome {
+.design-no-title {
   position: absolute;
   width: 34px;
   height: 34px;
@@ -125,9 +116,9 @@ button {
   background: url(./assets/images/df65be97541df143ad301c8a6d0daba39c9bf871.png)
     no-repeat center;
   background-size: cover;
-  z-index: 23;
+  z-index: 22;
 }
-.design-sem-nome-3 {
+.design-no-title-3 {
   position: absolute;
   width: 34px;
   height: 34px;
@@ -136,9 +127,9 @@ button {
   background: url(./assets/images/df65be97541df143ad301c8a6d0daba39c9bf871.png)
     no-repeat center;
   background-size: cover;
-  z-index: 25;
+  z-index: 24;
 }
-.design-preview {
+.design-removebg-preview {
   position: absolute;
   width: 34px;
   height: 34px;
@@ -147,7 +138,7 @@ button {
   background: url(./assets/images/df65be97541df143ad301c8a6d0daba39c9bf871.png)
     no-repeat center;
   background-size: cover;
-  z-index: 29;
+  z-index: 28;
 }
 .username {
   display: flex;
@@ -164,7 +155,7 @@ button {
   line-height: 23.98px;
   text-align: left;
   white-space: nowrap;
-  z-index: 26;
+  z-index: 25;
 }
 .pagina-principal {
   display: flex;
@@ -181,7 +172,7 @@ button {
   line-height: 23.98px;
   text-align: left;
   white-space: nowrap;
-  z-index: 28;
+  z-index: 27;
 }
 .sobre-nos {
   display: flex;
@@ -198,14 +189,14 @@ button {
   line-height: 23.98px;
   text-align: left;
   white-space: nowrap;
-  z-index: 22;
+  z-index: 21;
 }
 .flex-row-c {
   position: relative;
   width: 1197px;
   height: 527px;
   margin: 43px 0 0 37px;
-  z-index: 34;
+  z-index: 33;
 }
 .ellipse {
   position: absolute;
@@ -213,13 +204,13 @@ button {
   height: 187px;
   top: 0;
   left: 0;
-  background: url(./assets/images/4421599b-dd7d-4c2f-a7a3-1d8af12de4fd.png)
+  background: url(./assets/images/713ae360-5211-45e8-bece-56a2eb4b0a6e.png)
     no-repeat center;
   background-size: cover;
-  z-index: 11;
+  z-index: 10;
   border-radius: 50%;
 }
-.design-preview-4 {
+.design-removebg-preview-4 {
   position: absolute;
   width: 187px;
   height: 187px;
@@ -228,9 +219,9 @@ button {
   background: url(./assets/images/df65be97541df143ad301c8a6d0daba39c9bf871.png)
     no-repeat center;
   background-size: cover;
-  z-index: 20;
+  z-index: 19;
 }
-.hello-username {
+.ola-username {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -246,7 +237,7 @@ button {
   line-height: 43px;
   text-align: center;
   white-space: nowrap;
-  z-index: 12;
+  z-index: 11;
 }
 .rectangle-5 {
   position: absolute;
@@ -254,10 +245,10 @@ button {
   height: 62px;
   top: 89px;
   left: 214px;
-  cursor: pointer;
   background: #ffffff;
   border: 1px solid #473d3b;
-  z-index: 13;
+  z-index: 12;
+  overflow: hidden;
   border-radius: 20px;
 }
 .editar-perfil {
@@ -265,10 +256,10 @@ button {
   align-items: flex-start;
   justify-content: center;
   position: absolute;
-  width: 132px;
+  width: 138px;
   height: 29px;
   top: 15px;
-  left: 55px;
+  left: 52px;
   color: #22202a;
   font-family: Inria Serif, var(--default-font-family);
   font-size: 24px;
@@ -276,28 +267,28 @@ button {
   line-height: 28.776px;
   text-align: center;
   white-space: nowrap;
-  z-index: 16;
+  z-index: 15;
 }
 .rectangle-6 {
   position: absolute;
   width: 577px;
   height: 208px;
   top: 115px;
-  left: 316px;
+  left: 314px;
   font-size: 0px;
   background: #ffffff;
   border: 1px solid #473d3b;
-  z-index: 34;
+  z-index: 33;
   border-radius: 30px;
 }
-.tem-certeza-deseja {
+.tem-certeza-logout {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   position: relative;
-  width: 479px;
+  width: 423px;
   height: 29px;
-  margin: 57px 0 0 49px;
+  margin: 57px 0 0 77px;
   color: #000000;
   font-family: Inria Serif, var(--default-font-family);
   font-size: 24px;
@@ -305,29 +296,25 @@ button {
   line-height: 28.776px;
   text-align: center;
   white-space: nowrap;
-  z-index: 35;
+  z-index: 34;
 }
-.flex-row-bed {
+.flex-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
-  width: 461px;
+  width: 405px;
   height: 43px;
-  margin: 19px 0 0 58px;
-  z-index: 37;
+  margin: 19px 0 0 86px;
+  z-index: 39;
 }
-.group {
+.rectangle-7 {
   flex-shrink: 0;
   position: relative;
-  width: 201px;
+  width: 173px;
   height: 43px;
-  cursor: pointer;
-  background: transparent;
-  background: no-repeat center;
-  background-size: cover;
-  border: none;
-  z-index: 36;
+  background: #22202a;
+  z-index: 39;
   border-radius: 5px;
 }
 .nao {
@@ -337,7 +324,7 @@ button {
   position: absolute;
   height: 24px;
   top: 8px;
-  left: 83px;
+  left: 69px;
   color: #d9d9d9;
   font-family: Inria Serif, var(--default-font-family);
   font-size: 20px;
@@ -345,27 +332,26 @@ button {
   line-height: 23.98px;
   text-align: left;
   white-space: nowrap;
-  z-index: 39;
+  z-index: 40;
 }
-.rectangle-7 {
+.rectangle-8 {
   flex-shrink: 0;
   position: relative;
-  width: 195px;
+  width: 167px;
   height: 43px;
-  cursor: pointer;
-  background: #d63e3e;
-  border: none;
-  z-index: 37;
+  background: #ffffff;
+  border: 1px solid #473d3b;
+  z-index: 36;
   border-radius: 5px;
 }
-.sim-apagar {
+.logout-9 {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
   height: 24px;
-  top: 8px;
-  left: 43px;
+  top: 7px;
+  left: 51px;
   color: #000000;
   font-family: Inria Serif, var(--default-font-family);
   font-size: 20px;
@@ -373,16 +359,16 @@ button {
   line-height: 23.98px;
   text-align: left;
   white-space: nowrap;
-  z-index: 38;
+  z-index: 37;
 }
-.rectangle-8 {
+.rectangle-a {
   position: absolute;
   width: 708px;
   height: 308px;
   top: 219px;
   left: 0;
   background: #e5e5ec;
-  z-index: 14;
+  z-index: 13;
   border-radius: 20px;
 }
 .nome-exemplo {
@@ -397,7 +383,7 @@ button {
   text-align: left;
   text-overflow: initial;
   white-space: nowrap;
-  z-index: 30;
+  z-index: 29;
 }
 .nome {
   position: relative;
@@ -417,7 +403,7 @@ button {
   line-height: 28.776px;
   text-align: left;
 }
-.box-4 {
+.section-3 {
   position: relative;
   width: 651px;
   height: 58px;
@@ -429,7 +415,7 @@ button {
   text-align: left;
   text-overflow: initial;
   white-space: nowrap;
-  z-index: 31;
+  z-index: 30;
 }
 .text-d {
   position: relative;
@@ -449,7 +435,7 @@ button {
   line-height: 28.776px;
   text-align: left;
 }
-.wrapper-5 {
+.group-5 {
   position: relative;
   width: 651px;
   height: 58px;
@@ -461,7 +447,7 @@ button {
   text-align: left;
   text-overflow: initial;
   white-space: nowrap;
-  z-index: 32;
+  z-index: 31;
 }
 .text-f {
   position: relative;
@@ -481,7 +467,7 @@ button {
   line-height: 28.776px;
   text-align: left;
 }
-.box-5 {
+.box-2 {
   position: relative;
   width: 651px;
   height: 58px;
@@ -493,7 +479,7 @@ button {
   text-align: left;
   text-overflow: initial;
   white-space: nowrap;
-  z-index: 33;
+  z-index: 32;
 }
 .text-11 {
   position: relative;
@@ -522,7 +508,7 @@ button {
   cursor: pointer;
   background: #ffffff;
   border: 1px solid #473d3b;
-  z-index: 18;
+  z-index: 17;
   border-radius: 20px;
 }
 .logout-span {
@@ -541,9 +527,9 @@ button {
   line-height: 28.776px;
   text-align: center;
   white-space: nowrap;
-  z-index: 19;
+  z-index: 18;
 }
-.rectangle-button-9 {
+.rectangle-button-b {
   position: absolute;
   width: 224px;
   height: 68px;
@@ -552,7 +538,7 @@ button {
   cursor: pointer;
   background: #22202a;
   border: none;
-  z-index: 15;
+  z-index: 14;
   border-radius: 20px;
 }
 .apagar-perfil-span {
@@ -571,9 +557,9 @@ button {
   line-height: 28.776px;
   text-align: center;
   white-space: nowrap;
-  z-index: 17;
+  z-index: 16;
 }
-.flex-row-fba {
+.flex-row-af {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -581,7 +567,7 @@ button {
   width: 186px;
   height: 61px;
   margin: 60px 0 0 551px;
-  z-index: 10;
+  z-index: 9;
 }
 .rhlogo-removebg-preview {
   flex-shrink: 0;
@@ -591,7 +577,7 @@ button {
   background: url(./assets/images/8bfce4195e7e34b0f63d51e5d6277860c396c43d.png)
     no-repeat center;
   background-size: cover;
-  z-index: 10;
+  z-index: 9;
 }
 .for-all-span {
   flex-shrink: 0;
@@ -604,15 +590,15 @@ button {
   line-height: 47.96px;
   text-align: left;
   white-space: nowrap;
-  z-index: 9;
+  z-index: 8;
 }
-.rectangle-a {
+.rectangle-c {
   position: absolute;
   width: 1280px;
   height: 76px;
   top: 756px;
   left: 0;
-  background: url(./assets/images/d7e2bc31-c810-4b11-9f21-ffec92534200.png)
+  background: url(./assets/images/0a1d0c80-dd12-4ad4-baa3-011e05ef6428.png)
     no-repeat center;
   background-size: cover;
   z-index: 6;
