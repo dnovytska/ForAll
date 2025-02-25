@@ -11,13 +11,13 @@ html, body {
     "Source Han Sans CN", sans-serif;
 }
 .imagem-logo {
-    width: 61px;  /* Ajuste a largura conforme necessário */
-    height: 61px;  /* Mantém a proporção da imagem */
+    width: 61px; 
+    height: 61px;  
     margin: 7px;
 }
 .imagem-circle {
-    width: 34px;  /* Ajuste a largura conforme necessário */
-    height: 34px;  /* Mantém a proporção da imagem */
+    width: 34px;  
+    height: 34px;
     margin: 10px;
     margin-left: 35px;
 }
