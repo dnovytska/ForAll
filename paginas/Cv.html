@@ -4,9 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>For All</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
     <link rel="stylesheet" href="../css/CV.css" />
     <link rel="stylesheet" href="../css/globals.css" />
+    <style>
+        /* Adicionando estilos para os inputs */
+        input[type="text"],
+        input[type="email"] {
+            width: 100%; /* Largura total */
+            padding: 10px; /* Espaçamento interno */
+            margin: 10px 0; /* Margem superior e inferior */
+            border: 1px solid #473d3b; /* Borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            font-size: 16px; /* Tamanho da fonte */
+        }
+        label {
+            font-family: "Inria Serif", sans-serif;
+            font-size: 24px;
+            color: #22202a;
+            margin-top: 10px;
+            display: block; /* Faz o label ocupar toda a largura */
+        }
+        .menu-option {
+            display: flex;
+            align-items: center; /* Alinha a imagem e o texto verticalmente */
+            margin: 10px 0; /* Margem entre as opções do menu */
+        }
+        .menu-option img {
+            width: 24px; /* Ajuste o tamanho da imagem */
+            height: 24px; /* Ajuste o tamanho da imagem */
+            margin-right: 10px; /* Espaço entre a imagem e o texto */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -14,18 +43,22 @@
             <div class="slice">
                 <div class="rectangle">
                     <div class="rectangle-1">
-                        <div class="rh-logo"></div>
+                        <div class="rh-logo"><img src="../images/logo.png" alt="Logo"></div>
                         <span class="for-all">For all</span>
-                        <span class="gestao-de-recursos-humanos">Gestão de Recursos Humanos</span>
+                        <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
                     </div>
                 </div>
                 <div class="rectangle-2">
-                    <div class="design-sem-nome"></div>
-                    <div class="design-sem-nome-3"></div>
-                    <div class="design-sem-nome-4"></div>
-                    <div class="design-preview"></div>
-                    <div class="design-preview-5"></div>
-                    <div class="design-preview-6"></div>
+                    <div class="design-sem-nome">
+                      <img src="../images/circle.png" alt="Circle Icon" /></div>
+                    <div class="design-sem-nome-3">
+                      <img src="../images/circle.png" alt="Circle Icon" /></div>
+                    <div class="design-preview">
+                      <img src="../images/circle.png" alt="Circle Icon" /></div>
+                    <div class="design-preview-5">
+                      <img src="../images/circle.png" alt="Circle Icon" /></div>
+                    <div class="design-preview-6">
+                      <img src="../images/circle.png" alt="Circle Icon" /></div>
                     <span class="username">Username</span>
                     <span class="criar-novo-emprego">Criar Novo Emprego</span>
                     <span class="pagina-principal">Pagina Principal</span>
@@ -41,46 +74,34 @@
         <div class="flex-row-f">
             <div class="ellipse"></div>
             <div class="design-unnamed"></div>
-            <span class="nome">Nome</span>
-            <span class="nome-7">Nome</span>
-            <div class="rectangle-8"><span class="nome-9">Nome</span></div>
-            <span class="email">Email</span>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" class="nome-input" placeholder="Digite seu nome" />
+            <label for="email">Email</label>
+            <input type="email" id="email" class="email-input" placeholder="Digite seu email" />
         </div>
-        <div class="rectangle-a"><span class="email-b">Email</span></div>
         <div class="flex-row">
-            <span class="telemovel">Telemóvel</span>
-            <span class="data-de-nascimento">Data de Nascimento</span>
+            <label for="telemovel">Telemóvel</label>
+            <label for="data-nascimento">Data de Nascimento</label>
         </div>
         <div class="flex-row-c">
-            <div class="rectangle-c">
-                <span class="span-telemovel">Telemóvel</span>
-            </div>
-            <div class="rectangle-d">
-                <span class="span-dd-mm-yyyy">dd/mm/yyyy</span>
-            </div>
+            <input type="text" id="telemovel" class="telemovel-input" placeholder="Digite seu telemóvel" />
+            <input type="text" id="data-nascimento" class="data-nascimento-input" placeholder="dd/mm/yyyy" />
         </div>
         <div class="flex-row-e">
-            <span class="span-habilitacoes-academicas">Habilitações Acadêmicas</span>
-            <span class="span-anos-de-experiencia">Anos de Expriência</span>
+            <label for="habilitacoes">Habilitações Acadêmicas</label>
+            <label for="experiencia">Anos de Experiência</label>
         </div>
         <div class="flex-row-d">
-            <div class="rectangle-f"></div>
-            <div class="rectangle-10"></div>
+            <input type="text" id="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" />
+            <input type="text" id="experiencia" class="experiencia-input" placeholder="Anos de experiência" />
+        </div>
+        <div class="flex-row-e">
             <span class="anexar-curriculo">Anexar curriculo</span>
-            <span class="anexar-curriculo-11">Anexar curriculo</span>
             <button class="rectangle-12"><span class="pdf">PDF</span></button>
         </div>
-        <div class="rectangle-13">
-            <span class="aceitar-candidato">Aceitar Candidato</span>
-        </div>
+        <footer>
+            <div class="rectangle-f"></div>
+        </footer>
     </main>
-
-    <footer>
-        <div class="flex-row-f-14">
-            <div class="rhlogo-removebg-preview"></div>
-            <span class="for-all-15">For all</span>
-        </div>
-        <div class="rectangle-16"></div>
-    </footer>
 </body>
 </html>

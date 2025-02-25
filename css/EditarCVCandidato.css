@@ -664,8 +664,7 @@ button {
   height: 76px;
   top: 756px;
   left: 0;
-  background: url(./assets/images/2af86148-4a7a-4828-bb80-dc8f04a8c5b5.png)
-    no-repeat center;
+  background-color: #22202a;
   background-size: cover;
   z-index: 6;
 }

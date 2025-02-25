@@ -27,8 +27,8 @@ html, body {
     height: 100%;
     overflow: hidden;
     position: relative;
-    width: 1280px;
-    height: 832px;
+    width: 100%;
+    height: 25vh;
     margin: 0 auto;
     background: #ffffff;
 }
@@ -143,3 +143,47 @@ button {
     border: 1px solid #473d3b;
     color: #000000;
 }
+
+.rectangle-14 {
+    position: absolute;
+    width: 1280px;
+    height: 76px;
+    top: 756px;
+    left: 0;
+    background-color: #22202a;
+    background-size: cover;
+    z-index: 6;
+  }
+  
+  .logo {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+        /* Adicionando estilos para os inputs */
+        input[type="text"],
+        input[type="email"] {
+            width: 100%; /* Largura total */
+            padding: 10px; /* Espaçamento interno */
+            margin: 10px 0; /* Margem superior e inferior */
+            border: 1px solid #473d3b; /* Borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            font-size: 16px; /* Tamanho da fonte */
+        }
+        label {
+            font-family: "Inria Serif", sans-serif;
+            font-size: 24px;
+            color: #22202a;
+            margin-top: 10px;
+            display: block; /* Faz o label ocupar toda a largura */
+        }
+        .menu-option {
+            display: flex;
+            align-items: center; /* Alinha a imagem e o texto verticalmente */
+            margin: 10px 0; /* Margem entre as opções do menu */
+        }
+        .menu-option img {
+            width: 24px; /* Ajuste o tamanho da imagem */
+            height: 24px; /* Ajuste o tamanho da imagem */
+            margin-right: 10px; /* Espaço entre a imagem e o texto */
+        }
