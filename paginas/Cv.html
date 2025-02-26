@@ -60,7 +60,7 @@
                     <div class="design-preview-6">
                       <img src="../images/circle.png" alt="Circle Icon" /></div>
                     <span class="username">Username</span>
-                    <span class="criar-novo-emprego">Criar Novo Emprego</span>
+                    <span class="criar-novo-emprego"> <link rel="stylesheet" href="./CriarEmprego.html">Criar Novo Emprego </span>
                     <span class="pagina-principal">Pagina Principal</span>
                     <span class="meus-empregos">Meus Empregos</span>
                     <span class="notificacoes">Notificações</span>
@@ -71,6 +71,9 @@
     </header>
 
     <main>
+        <div>
+            <h1>Curriculo</h1>
+        </div>
         <div class="flex-row-f">
             <div class="ellipse"></div>
             <div class="design-unnamed"></div>
@@ -79,12 +82,12 @@
             <label for="email">Email</label>
             <input type="email" id="email" class="email-input" placeholder="Digite seu email" />
         </div>
-        <div class="flex-row">
-            <label for="telemovel">Telemóvel</label>
-            <label for="data-nascimento">Data de Nascimento</label>
-        </div>
+            <label class="flex-row" for="telemovel">Telemóvel</label>
         <div class="flex-row-c">
             <input type="text" id="telemovel" class="telemovel-input" placeholder="Digite seu telemóvel" />
+            </div>
+        <label  class="flex-row"  for="data-nascimento">Data de Nascimento</label>
+        <div class="flex-row-c">
             <input type="text" id="data-nascimento" class="data-nascimento-input" placeholder="dd/mm/yyyy" />
         </div>
         <div class="flex-row-e">
@@ -95,9 +98,11 @@
             <input type="text" id="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" />
             <input type="text" id="experiencia" class="experiencia-input" placeholder="Anos de experiência" />
         </div>
-        <div class="flex-row-e">
-            <span class="anexar-curriculo">Anexar curriculo</span>
-            <button class="rectangle-12"><span class="pdf">PDF</span></button>
+        <div class="button-container">
+            <button class="button-black">PDF</button>
+        </div>
+        <div class="button-container">
+            <button class="button-black" >Aceitar Candidato</button>
         </div>
         <footer>
             <div class="rectangle-f"></div>

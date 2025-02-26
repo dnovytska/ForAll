@@ -187,3 +187,56 @@ button {
             height: 24px; /* Ajuste o tamanho da imagem */
             margin-right: 10px; /* Espaço entre a imagem e o texto */
         }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Centraliza os botões horizontalmente */
+            align-items: center; /* Centraliza verticalmente (se necessário) */
+            gap: 10px; /* Espaço entre os botões */
+            margin-top: 20px; /* Ajuste para posicionamento */
+        }
+        
+        .button-black {
+            border-radius: 20px;
+            background: #22202A;
+            color: #967D60;
+            text-align: center;
+            font-family: "Inria Serif";
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            width: 224px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .button-black:hover {
+            background: #2e2b36;
+        }
+        
+        .button-white {
+            
+            border-radius: 20px;
+            text-align: center;
+            font-family: "Inria Serif";
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            width: 224px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+            border: 1px solid #473D3B;
+            background: #FFF;
+            color: #967D60;
+        }

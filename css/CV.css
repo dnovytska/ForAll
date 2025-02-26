@@ -494,7 +494,7 @@ button {
   position: relative;
   width: 1111px;
   height: 35px;
-  margin: 6px 0 0 54px;
+  margin: 25px;
   z-index: 25;
 }
 
@@ -508,6 +508,7 @@ button {
   z-index: 22;
   overflow: hidden;
   border-radius: 5px;
+  margin: 12px;
 }
 
 .span-telemovel {
@@ -565,7 +566,7 @@ button {
   position: relative;
   width: 952px;
   height: 30px;
-  margin: 12px 0 0 54px;
+  margin: 12px 12 12 54px;
   z-index: 43;
 }
 
