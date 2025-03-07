@@ -265,3 +265,6 @@ button {
             height: 24px;
             margin-right: 8px; 
         }
+        .flex-row-f {
+            margin: 25px;
+        }

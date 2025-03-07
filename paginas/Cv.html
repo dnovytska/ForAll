@@ -36,95 +36,57 @@
         }
     </style>
 </head>
-<body><header>
-    <div class="main-container">
-        <div class="slice">
-            <div class="rectangle">
-                <div class="rectangle-1">
-                    <div class="rh-logo">
-                        <img src="../images/logo.png" alt="Logo">
+<body>
+    
+    <header>
+        <div class="main-container">
+            <div class="slice">
+                <div class="rectangle">
+                    <div class="rectangle-1">
+                        <div class="rh-logo">
+                            <img src="../images/logo.png" alt="Logo">
+                        </div>
+                        <span class="for-all">For all</span>
+                        <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
                     </div>
-                    <span class="for-all">For all</span>
-                    <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
                 </div>
-            </div>
-            <div class="rectangle-2">
-                <div class="design-sem-nome">
-                    <a href="pagina_principal.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Página Principal
-                    </a>
+                <div class="rectangle-2">
+                    <div class="menu-item">
+                        <a href="pagina_principal.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Página Principal
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="meus_empregos.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Meus Empregos
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="notificacoes.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Notificações
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="sobre_nos.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Sobre Nós
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="criar_emprego.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Criar Novo Emprego
+                        </a>
+                    </div>
+                    <span class="username">Username</span>
                 </div>
-                <div class="design-sem-nome-3">
-                    <a href="meus_empregos.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Meus Empregos
-                    </a>
-                </div>
-                <div class="design-preview">
-                    <a href="notificacoes.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Notificações
-                    </a>
-                </div>
-                <div class="design-preview-5">
-                    <a href="sobre_nos.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Sobre Nós
-                    </a>
-                </div>
-                <div class="design-preview-6">
-                    <a href="criar_emprego.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Criar Novo Emprego
-                    </a>
-                </div>
-                <span class="username">Username</span>
             </div>
         </div>
-    </div>
-</header>
-
-<style>
-    .rectangle-2 {
-        display: flex; 
-        align-items: center; 
-    }
-    .rectangle-2 div {
-        margin-right: 0px; /* Espaçamento entre os itens do menu */
-        display: flex; /* Exibe o conteúdo do item em linha */
-        align-items: center; /* Alinha verticalmente ao centro */
-    }
-    .rectangle-2 a {
-        text-decoration: none; /* Remove o sublinhado dos links */
-        color: #ffffff; /* Cor do texto */
-        display: flex; /* Exibe o conteúdo do link em linha */
-        align-items: center; /* Alinha verticalmente ao centro */
-    }
-    .rectangle-2 img {
-        width: 24px; /* Largura da imagem do ícone */
-        height: 24px; /* Altura da imagem do ícone */
-        margin-right: 8px; /* Espaçamento entre a imagem e o texto */
-    }
-</style>
-
-<style>
-    .rectangle-2 {
-        display: flex; /* Exibe os itens em linha */
-        align-items: center; /* Alinha verticalmente ao centro */
-        flex-wrap: wrap; /* Permite que os itens quebrem para a linha seguinte se necessário */
-    }
-    .menu-item {
-        margin-right: 20px; /* Espaçamento entre os itens do menu */
-        display: flex; /* Exibe o conteúdo do item em linha */
-        align-items: center; /* Alinha verticalmente ao centro */
-    }
-    .menu-item a {
-        text-decoration: none; /* Remove o sublinhado dos links */
-        color: #333; /* Cor do texto */
-    }
-</style>
-
+    </header>
+    
     <main>
         <div>
             <h1>Curriculo</h1>
@@ -136,27 +98,15 @@
             <input type="text" id="nome" class="nome-input" placeholder="Digite seu nome" />
             <label for="email">Email</label>
             <input type="email" id="email" class="email-input" placeholder="Digite seu email" />
-        </div>
-            <label class="flex-row" for="telemovel">Telemóvel</label>
-        <div class="flex-row-c">
+            <label for="telemovel">Telemóvel</label>
             <input type="text" id="telemovel" class="telemovel-input" placeholder="Digite seu telemóvel" />
-            </div>
-        <label  class="flex-row"  for="data-nascimento">Data de Nascimento</label>
-        <div class="flex-row-c">
+            <label for="data-nascimento">Data de Nascimento</label>
             <input type="text" id="data-nascimento" class="data-nascimento-input" placeholder="dd/mm/yyyy" />
-        </div>
-        <div class="flex-row-e">
             <label for="habilitacoes">Habilitações Acadêmicas</label>
-            <label for="experiencia">Anos de Experiência</label>
-        </div>
-        <div class="flex-row-d">
             <input type="text" id="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" />
+            <label for="experiencia">Anos de Experiência</label>
             <input type="text" id="experiencia" class="experiencia-input" placeholder="Anos de experiência" />
-        </div>
-        <div class="button-container">
             <button class="button-black">PDF</button>
-        </div>
-        <div class="button-container">
             <button class="button-black" >Aceitar Candidato</button>
         </div>
         <footer>
