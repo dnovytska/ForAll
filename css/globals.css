@@ -160,40 +160,40 @@ button {
     height: 3.5rem;
 }
 
-        /* Adicionando estilos para os inputs */
+        
         input[type="text"],
         input[type="email"] {
-            width: 100%; /* Largura total */
-            padding: 10px; /* Espaçamento interno */
-            margin: 10px 0; /* Margem superior e inferior */
-            border: 1px solid #473d3b; /* Borda */
-            border-radius: 5px; /* Bordas arredondadas */
-            font-size: 16px; /* Tamanho da fonte */
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid #473d3b; 
+            border-radius: 5px; 
+            font-size: 16px; 
         }
         label {
             font-family: "Inria Serif", sans-serif;
             font-size: 24px;
             color: #22202a;
             margin-top: 10px;
-            display: block; /* Faz o label ocupar toda a largura */
+            display: block; 
         }
         .menu-option {
             display: flex;
-            align-items: center; /* Alinha a imagem e o texto verticalmente */
-            margin: 10px 0; /* Margem entre as opções do menu */
+            align-items: center;
+            margin: 10px 0; 
         }
         .menu-option img {
-            width: 24px; /* Ajuste o tamanho da imagem */
-            height: 24px; /* Ajuste o tamanho da imagem */
-            margin-right: 10px; /* Espaço entre a imagem e o texto */
+            width: 24px; 
+            height: 24px; 
+            margin-right: 10px; 
         }
 
         .button-container {
             display: flex;
-            justify-content: center; /* Centraliza os botões horizontalmente */
-            align-items: center; /* Centraliza verticalmente (se necessário) */
-            gap: 10px; /* Espaço entre os botões */
-            margin-top: 20px; /* Ajuste para posicionamento */
+            justify-content: center; 
+            align-items: center; 
+            gap: 10px; 
+            margin-top: 20px;
         }
         
         .button-black {
@@ -267,4 +267,38 @@ button {
         }
         .flex-row-f {
             margin: 25px;
+        }
+        .button-white{
+            border-radius: 10px;
+            background: var(--Color-3, #FFF);
+            color: var(--Color-2, #22202A);
+            text-align: center;
+            font-family: "Inria Serif";
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }.button-container {
+            display: flex; 
+            justify-content: space-between;
+            margin: 20px; 
+        }
+        
+        .button-table {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 10px;
+            margin: 80px; 
+        }
+        
+        
+        .button-white {
+            padding: 10px 20px; /* Estilo dos botões */
+            background-color: white; /* Cor de fundo dos botões */
+            border: 1px solid #ccc; /* Borda dos botões */
+            cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+        }
+        
+        .button-white:hover {
+            background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
         }
