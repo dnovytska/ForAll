@@ -302,3 +302,7 @@ button {
             background-color: #22202A;
             justify-content: center;
         }
+        
+.login-register {
+    margin-left: auto;
+  }
