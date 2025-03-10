@@ -43,14 +43,14 @@ label {
 
 .rectangle {
   position: relative;
-  width: 100%; /* Ajusta a largura para 100% */
+  width: 100%; 
   height: 76px;
   background: #22202a;
 }
 
 .rectangle-1 {
   position: absolute;
-  width: 100%; /* Ajusta a largura para 100% */
+  width: 100%;
   height: 76px;
   top: 0;
   left: 0;
@@ -70,15 +70,15 @@ label {
 }
 
 .menu-item {
-  display: flex; /* Exibe o conteúdo do item em linha */
-  align-items: center; /* Alinha verticalmente ao centro */
-  margin: 10px 0; /* Espaçamento entre os itens do menu */
+  display: flex;
+  align-items: center; 
+  margin: 10px 0; 
 }
 
 .menu-item img {
-  width: 24px; /* Largura da imagem do ícone */
-  height: 24px; /* Altura da imagem do ícone */
-  margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+  width: 24px; 
+  height: 24px; 
+  margin-right: 10px; 
 }
 
 .username {
@@ -88,7 +88,7 @@ label {
   position: absolute;
   height: 24px;
   top: 16px;
-  left: 1128px; /* Ajuste conforme necessário */
+  left: 1128px; 
   color: #e5e5ec;
   font-family: Inria Serif, var(--default-font-family);
   font-size: 20px;
