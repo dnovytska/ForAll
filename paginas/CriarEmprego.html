@@ -4,83 +4,115 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>For All</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400&display=swap" />
-    <link rel="stylesheet" href="../css/CriarEmprego.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
+    <link rel="stylesheet" href="../css/CV.css" />
     <link rel="stylesheet" href="../css/globals.css" />
+    <style>
+        input[type="text"],
+        input[type="responsabilidades"] {
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid #473d3b; 
+            border-radius: 5px; 
+            font-size: 16px; 
+        }
+        label {
+            font-family: "Inria Serif", sans-serif;
+            font-size: 24px;
+            color: #22202a;
+            margin-top: 10px;
+            display: block; 
+        }
+        .menu-option {
+            display: flex;
+            align-items: center;
+            margin: 10px 0; 
+        }
+        .menu-option img {
+            width: 24px;
+            height: 24px; 
+            margin-right: 10px; 
+        }
+    </style>
 </head>
 <body>
+    
     <header>
         <div class="main-container">
             <div class="slice">
                 <div class="rectangle">
                     <div class="rectangle-1">
-                        <div class="rh-logo"></div>
-                        <img src="../images/logo.png" alt="Descrição da imagem" class="imagem-logo" />
+                        <div class="rh-logo">
+                            <img src="../images/logo.png" alt="Logo">
+                        </div>
                         <span class="for-all">For all</span>
-                        <span class="human-resources-management">Gestão de Recursos Humanos</span>
+                        <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
                     </div>
                 </div>
                 <div class="rectangle-2">
-                    <img src="../images/circle.png" alt="Descrição da imagem" class="imagem-circle" />
+                    <div class="menu-item">
+                        <a href="pagina_principal.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Página Principal
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="meus_empregos.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Meus Empregos
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="notificacoes.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Notificações
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="sobre_nos.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Sobre Nós
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="criar_emprego.html">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Criar Novo Emprego
+                        </a>
+                    </div>
                     <span class="username">Username</span>
-                    <span class="create-new-job">Criar Novo Emprego</span>
-                    <span class="main-page">Pagina Principal</span>
-                    <span class="my-jobs">Meus Empregos</span>
-                    <span class="notifications">Notificações</span>
-                    <span class="about-us">Sobre Nós</span>
                 </div>
             </div>
         </div>
     </header>
-
+    
     <main>
-        <span class="create-new-job-7">Criar um Novo Emprego</span>
-        <span class="job-title">Titulo do emprego</span>
-        <div class="rectangle-8"></div>
-        <div class="flex-row-bd">
-            <span class="responsabilidades">Responsabilidades</span>
-            <span class="competencias">Competências</span>
+        <div>
+            <h1>Curriculo</h1>
         </div>
-        <div class="flex-row-bbf">
-            <div class="rectangle-9"></div>
-            <div class="rectangle-a"></div>
-        </div>
-        <div class="flex-row-bc">
-            <span class="beneficios">Beneficios</span>
-            <span class="area">Area</span>
-        </div>
-        <div class="flex-row">
-            <div class="rectangle-b"></div>
-            <div class="rectangle-c"></div>
-            <span class="localizacao">Localização</span>
-            <div class="rectangle-d"></div>
-        </div>
-        <div class="flex-row-a">
-            <span class="ordenado">Ordenado</span>
-            <span class="nome-da-empresa">Nome da Empresa</span>
-        </div>
-        <div class="flex-row-d">
-            <div class="rectangle-e"></div>
-            <div class="rectangle-f">
-                <span class="nome-da-empresa-10">Nome da Empresa</span>
-            </div>
-        </div>
-        <div class="flex-row-be">
-            <div class="rectangle-11">
-                <span class="span-salvar">Salvar</span>
-            </div>
-            <div class="rectangle-12">
-                <span class="span-cancelar">Cancelar</span>
-            </div>
-        </div>
-    </main>
-
-    <footer>
+        
         <div class="flex-row-f">
-            <div class="rhlogo-removebg-preview"></div>
-            <span class="span-for-all">For all</span>
+            <div class="ellipse"></div>
+            <div class="design-unnamed"></div>
+            <label for="titulo-emprego">Titulo de Emprego</label>
+            <input type="text" id="titulo-emprego" class="nome-input" placeholder="Digite titulo de emprego" />
+            <label for="responsabilidades">Responsabilidades</label>
+            <input type="responsabilidades" id="responsabilidades" class="responsabilidades-input" placeholder="Digite seu responsabilidades" />
+            <label for="competencias">competencias</label>
+            <input type="text" id="competencias" class="competencias-input" placeholder="Digite seu competencias" />
+            <label for="beneficios">Beneficios</label>
+            <input type="text" id="beneficios" class="beneficios-input" placeholder="Digite seu Beneficios" />
+            <label for="habilitacoes">Habilitações Acadêmicas</label>
+            <input type="text" id="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" />
+            <label for="experiencia">Anos de Experiência</label>
+            <input type="text" id="experiencia" class="experiencia-input" placeholder="Anos de experiência" />
+            <button class="button-black">Salvar</button>
+            <button class="button-black" >Cancelar</button>
         </div>
-        <div class="rectangle-13"></div>
-    </footer>
+        <footer>
+            <div class="rectangle-f"></div>
+        </footer>
+    </main>
 </body>
 </html>
