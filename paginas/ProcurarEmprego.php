@@ -45,15 +45,12 @@
     <main>
         <section class="job-list">
             <?php
-            // Conexão com o banco de dados
             $conn = new mysqli("localhost", "root", "", "forall");
 
-            // Verifica a conexão
             if ($conn->connect_error) {
                 die("Conexão falhou: " . $conn->connect_error);
             }
 
-            // Consulta ao banco de dados com JOINs
             $sql = "
                 SELECT 
                     e.titulo, 
@@ -78,9 +75,7 @@
 
             $result = $conn->query($sql);
 
-            // Verifica se há resultados
             if ($result->num_rows > 0) {
-                // Exibe os resultados
                 while($row = $result->fetch_assoc()) {
                     echo "<article class='job'>";
                     echo "<h2>Título: " . $row["titulo"] . "</h2>";
@@ -97,7 +92,6 @@
                 echo "<p>Nenhum emprego encontrado.</p>";
             }
 
-            // Fecha a conexão
             $conn->close();
             ?>
         </section>
