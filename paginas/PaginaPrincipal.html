@@ -37,59 +37,43 @@
     </style>
 </head>
 <body>
-    
     <header>
-        <div class="main-container">
-            <div class="slice">
-                <div class="rectangle">
-                    <div class="rectangle-1">
-                        <div class="rh-logo">
-                            <img src="../images/logo.png" alt="Logo">
-                        </div>
-                        <span class="for-all">For all</span>
-                        <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
+    <div class="main-container">
+        <div class="slice">
+            <div class="rectangle">
+                <div class="rectangle-1">
+                    <div class="rh-logo">
+                        <img src="../images/logo.png" alt="Logo">
+                    </div>
+                    <span class="for-all">For all</span>
+                    <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
+                    <div class="auth-buttons">
+                        <button class="login-register">Login</button>
+                        <button class="login-register">Registar-se</button>
                     </div>
                 </div>
-                <div class="rectangle-2">
-                    <div class="menu-item">
-                        <a href="pagina_principal.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Página Principal
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="meus_empregos.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Meus Empregos
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="notificacoes.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Notificações
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="sobre_nos.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Sobre Nós
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="criar_emprego.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Criar Novo Emprego
-                        </a>
-                    </div>
-                    <span class="username">Username</span>
+            </div>
+            <div class="rectangle-2">
+                <div class="menu-item">
+                    <a href="pagina_principal.html">
+                        <img src="../images/circle.png" alt="Circle Icon" />
+                        Página Principal
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="sobre_nos.html">
+                        <img src="../images/circle.png" alt="Circle Icon" />
+                        Sobre Nós
+                    </a>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
     <main>
         <h1>Procura seu Futuro Emprego!</h1>
         <div class="button-container">
-            <div class="button-table">
+            <div class="button-table">     
                 <button class="button-white">Engenharia</button>
                 <button class="button-white">Marketing</button>
                 <button class="button-white">Informatica</button>
@@ -98,25 +82,44 @@
                 <button class="button-white">Medicina</button>
                 <button class="button-white">Design</button>
                 <button class="button-white">Turismo</button>
-                <button class="button-white">Educação</button>
+                <button class="button-white" >Educação</button>
                 <button class="button-white">Justiça</button>
             </div>
-            <div class="button-table">
-                <button class="button-white">Engenharia</button>
-                <button class="button-white">Marketing</button>
-                <button class="button-white">Informatica</button>
-                <button class="button-white">Economia</button>
-                <button class="button-white">Direito</button>
-                <button class="button-white">Medicina</button>
-                <button class="button-white">Design</button>
-                <button class="button-white">Turismo</button>
-                <button class="button-white">Educação</button>
-                <button class="button-white">Justiça</button>
-            </div>
-            <div>
-                <button class="button-black">Procurar Emprego</button>
+            <div class="button-table"><form method="POST" action="../php/ProcurarPorAreasELocalizacoes.php">
+                <label for="localizacoes">Escolha as localidades:</label>
+                <select name="localizacoes[]" id="localizacoes" multiple>
+                    <option value="Lisboa">Lisboa</option>
+                    <option value="Porto">Porto</option>
+                    <option value="Coimbra">Coimbra</option>
+                    <option value="Braga">Braga</option>
+                    <option value="Funchal">Funchal</option>
+                    <option value="Aveiro">Aveiro</option>
+                    <option value="Évora">Évora</option>
+                    <option value="Guimarães">Guimarães</option>
+                    <option value="Setúbal">Setúbal</option>
+                    <option value="Viseu">Viseu</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                </select>
+                <button type="submit">Procurar</button>
+            </form>
+                <button class="button-white" type="submit" name="localidade" value="Lisboa">Lisboa</button>
+                <button class="button-white" type="submit" name="localidade" value="Porto">Porto</button>
+                <button class="button-white" type="submit" name="localidade" value="Coimbra">Coimbra</button>
+                <button class="button-white" type="submit" name="localidade" value="Faro">Faro</button>  
+                <button class="button-white" type="submit" name="localidade" value="Lisboa">Lisboa</button>
+                <button class="button-white" type="submit" name="localidade" value="Porto">Porto</button>
+                <button class="button-white" type="submit" name="localidade" value="Coimbra">Coimbra</button>
+                <button class="button-white" type="submit" name="localidade" value="Faro">Faro</button> 
             </div>
         </div>
+        <div>
+            <button class="button-black">Procurar</button>
+        </div>
+        <footer class="footer">
+            <div>
+                <p>For All</p>
+            </div>
+        </footer>
     </main>
 </body>
 </html>
