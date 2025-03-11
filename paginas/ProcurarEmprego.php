@@ -6,6 +6,7 @@
     <title>For All - Empregos</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
     <link rel="stylesheet" href="../css/CV.css" />
+    <link rel="stylesheet" href="../css/ProcurarEmprego.css" />
     <link rel="stylesheet" href="../css/globals.css" />
 </head>
 <body>
