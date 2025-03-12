@@ -185,17 +185,18 @@ button {
         }
         
         .button-black {
-            border-radius: 20px;
+            border-radius: 5px;
+            border: none;
             background: #22202A;
             color: #967D60;
             text-align: center;
             font-family: "Inria Serif";
-            font-size: 24px;
+            font-size: 16px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
-            width: 224px;
-            height: 68px;
+            width: 160px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -257,12 +258,14 @@ button {
             margin: 25px;
         }
         .button-white{
-            border-radius: 10px;
+            width: 110px;
+            height: 50px;
+            border-radius: 5px;
             background: var(--Color-3, #FFF);
             color: var(--Color-2, #22202A);
             text-align: center;
             font-family: "Inria Serif";
-            font-size: 32px;
+            font-size: 16px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
@@ -305,4 +308,19 @@ button {
         
 .login-register {
     margin-left: auto;
+  }
+
+  .data-perfil{
+    border-radius: 20px;
+    background: #E5E5EC;
+  }
+
+  .p-perfil{
+    color: #22202A;
+    font-family: "Inria Serif";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 20px;
   }
