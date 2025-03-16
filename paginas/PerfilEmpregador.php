@@ -1,3 +1,34 @@
+<?php
+// Conectar ao banco de dados
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "psiforall";
+
+// Criar conexão
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar a conexão
+if ($conn->connect_error) {
+    die("Erro de conexão: " . $conn->connect_error);
+}
+
+$idcandidato = 1;
+
+// Buscar os dados do candidato
+$sql = "SELECT nome, email, telefone FROM empregadores WHERE idempregador = $idcandidato";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+} else {
+    echo "Utilizador não encontrado!";
+    exit;
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +40,7 @@
     <link rel="stylesheet" href="../css/globals.css" />
     <style>
         input[type="text"],
-        input[type="responsabilidades"] {
+        input[type="email"] {
             width: 100%; 
             padding: 10px; 
             margin: 10px 0; 
@@ -58,12 +89,6 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="meus_empregos.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Meus Empregos
-                        </a>
-                    </div>
-                    <div class="menu-item">
                         <a href="notificacoes.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Notificações
@@ -75,46 +100,39 @@
                             Sobre Nós
                         </a>
                     </div>
-                    <div class="menu-item">
-                        <a href="criar_emprego.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Criar Novo Emprego
-                        </a>
-                    </div>
-                    <span class="username">Username</span>
+                    <span class="username"><?php echo htmlspecialchars($row['nome']); ?></span>
                 </div>
             </div>
         </div>
     </header>
-    
     <main>
+        <img src="../images/circle.png" alt="Foto de perfil">
         <div>
-            <h1>Curriculo</h1>
+            <h1>Olá, <?php echo htmlspecialchars($row['nome']); ?></h1>
+            <button onclick="window.location.href='EditarPerfilEmpregador.php'">Editar Perfil</button>
         </div>
-        
-        <div class="flex-row-f">
-            <div class="ellipse"></div>
-            <div class="design-unnamed"></div>
-            <label for="titulo-emprego">Titulo de Emprego</label>
-            <input type="text" id="titulo-emprego" class="nome-input" placeholder="Digite titulo de emprego" />
-            <label for="responsabilidades">Responsabilidades</label>
-            <input type="responsabilidades" id="responsabilidades" class="responsabilidades-input" placeholder="Digite seu responsabilidades" />
-            <label for="competencias">competencias</label>
-            <input type="text" id="competencias" class="competencias-input" placeholder="Digite seu competencias" />
-            <label for="beneficios">Beneficios</label>
-            <input type="text" id="beneficios" class="beneficios-input" placeholder="Digite seu Beneficios" />
-            <label for="habilitacoes">Habilitações Acadêmicas</label>
-            <input type="text" id="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" />
-            <label for="experiencia">Anos de Experiência</label>
-            <input type="text" id="experiencia" class="experiencia-input" placeholder="Anos de experiência" />
-            <button class="button-black">Salvar</button>
-            <button class="button-black" >Cancelar</button>
+        <div>
+            <div class="data-perfil">
+                <p class="p-perfil"><strong>Nome:</strong> <?php echo htmlspecialchars($row['nome']); ?></p>
+                <p class="p-perfil"><strong>Email:</strong> <?php echo htmlspecialchars($row['email']); ?></p>
+                <p class="p-perfil"><strong>Número de Telefone:</strong> <?php echo htmlspecialchars($row['telefone']); ?></p>
+            </div>
+            <div>
+                <button class="button-white" onclick="window.location.href='logout.php'">Logout</button>
+                <button class="button-black" onclick="confirmarExclusao()">Apagar Conta</button>
+            </div>
         </div>
-
-        
         <footer>
             <div class="rectangle-f"></div>
         </footer>
     </main>
+
+    <script>
+        function confirmarExclusao() {
+            if (confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
+                window.location.href = "../php/ApagarContaCandidato.php";
+            }
+        }
+    </script>
 </body>
 </html>
