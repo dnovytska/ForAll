@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,15 +24,18 @@
             margin-top: 10px;
             display: block; 
         }
-        .menu-option {
-            display: flex;
-            align-items: center;
-            margin: 10px 0; 
+        .button-black {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
         }
-        .menu-option img {
-            width: 24px;
-            height: 24px; 
-            margin-right: 10px; 
+        .button-black:hover {
+            background-color: #444;
         }
     </style>
 </head>
@@ -53,13 +55,13 @@
                 </div>
                 <div class="rectangle-2">
                     <div class="menu-item">
-                        <a href="pagina_principal.html">
+                        <a href="PaginaPrincipal.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Página Principal
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="meus_empregos.html">
+                        <a href="VerEmpregos.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Meus Empregos
                         </a>
@@ -71,13 +73,13 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="sobre_nos.html">
+                        <a href="SobreNos.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Sobre Nós
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="criar_emprego.html">
+                        <a href="CriarEmprego.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Criar Novo Emprego
                         </a>
@@ -87,34 +89,38 @@
             </div>
         </div>
     </header>
+
     <main>
         <div>
             <h1>Currículo</h1>
         </div>
-        <form action="/submit-form" method="POST">
-            <div class="flex-row-f">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" class="nome-input" placeholder="Digite seu nome" required />
+        <div class="flex-row-f">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" class="nome-input" placeholder="Digite seu nome" required />
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" class="email-input" placeholder="Digite seu email" required />
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="email-input" placeholder="Digite seu email" required />
 
-                <label for="telemovel">Telemóvel</label>
-                <input type="text" id="telemovel" name="telemovel" class="telemovel-input" placeholder="Digite seu telemóvel" required />
+            <label for="telemovel">Telemóvel</label>
+            <input type="text" id="telemovel" name="telemovel" class="telemovel-input" placeholder="Digite seu telemóvel" required />
 
-                <label for="data-nascimento">Data de Nascimento</label>
-                <input type="text" id="data-nascimento" name="data-nascimento" class="data-nascimento-input" placeholder="dd/mm/yyyy" required />
+            <label for="data-nascimento">Data de Nascimento</label>
+            <input type="text" id="data-nascimento" name="data-nascimento" class="data-nascimento-input" placeholder="dd/mm/yyyy" required />
 
-                <label for="habilitacoes">Habilitações Acadêmicas</label>
-                <input type="text" id="habilitacoes" name="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" required />
+            <label for="habilitacoes">Habilitações Acadêmicas</label>
+            <input type="text" id="habilitacoes" name="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" required />
 
-                <label for="experiencia">Anos de Experiência</label>
-                <input type="text" id="experiencia" name="experiencia" class="experiencia-input" placeholder="Anos de experiência" required />
+            <label for="experiencia">Anos de Experiência</label>
+            <input type="text" id="experiencia" name="experiencia" class="experiencia-input" placeholder="Anos de experiência" required />
+            
+            <!-- Botão para visualizar ou baixar o currículo -->
+            <label for="curriculo">Currículo Anexado</label>
+            <a href="path/to/your/curriculo.pdf" target="_blank">
+                <button type="button" class="button-black">Visualizar ou Baixar Currículo</button>
+            </a>
+            <button>Aceitar Candidato</button>
+        </div>
 
-                <button type="submit" class="button-black">PDF</button>
-                <button type="submit" class="button-black">Aceitar Candidato</button>
-            </div>
-        </form>
         <footer>
             <div class="rectangle-f"></div>
         </footer>

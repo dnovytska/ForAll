@@ -84,13 +84,13 @@ $conn->close();
                 </div>
                 <div class="rectangle-2">
                     <div class="menu-item">
-                        <a href="pagina_principal.html">
+                        <a href="PaginaPrincipal.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Página Principal
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="meus_empregos.html">
+                        <a href="VerEmpregos.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Meus Empregos
                         </a>
@@ -102,13 +102,13 @@ $conn->close();
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="sobre_nos.html">
+                        <a href="SobreNos.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Sobre Nós
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="criar_emprego.html">
+                        <a href="CriarEmprego.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Criar Novo Emprego
                         </a>
