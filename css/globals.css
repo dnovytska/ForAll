@@ -329,3 +329,10 @@ button {
     margin: 0; /* Remove margens padrão */
     white-space: nowrap; /* Evita que o texto quebre */
 }
+
+.logo-container {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    gap: 10px; /* Espaço entre a imagem e o texto */
+}

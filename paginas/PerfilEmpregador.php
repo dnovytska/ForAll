@@ -1,21 +1,17 @@
 <?php
-// Conectar ao banco de dados
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "psiforall";
 
-// Criar conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar a conexão
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
 $idcandidato = 1;
 
-// Buscar os dados do candidato
 $sql = "SELECT nome, email, telefone FROM empregadores WHERE idempregador = $idcandidato";
 $result = $conn->query($sql);
 
