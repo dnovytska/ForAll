@@ -117,7 +117,7 @@ $conn->close();
                 <p class="p-perfil"><strong>Número de Telefone:</strong> <?php echo htmlspecialchars($row['telefone']); ?></p>
             </div>
             <div>
-                <button class="button-white" onclick="window.location.href='logout.php'">Logout</button>
+                <button class="button-white" onclick="window.location.href='../php/Logout.php'">Logout</button>
                 <button class="button-black" onclick="confirmarExclusao()">Apagar Conta</button>
             </div>
         </div>
