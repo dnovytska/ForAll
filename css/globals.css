@@ -55,17 +55,6 @@ button {
     z-index: 1;
 }
 
-.rh-logo {
-    position: absolute;
-    width: 60.878px;
-    height: 61px;
-    top: 7px;
-    left: 7px;
-    background: url(./assets/images/8bfce4195e7e34b0f63d51e5d6277860c396c43d.png) no-repeat center;
-    background-size: cover;
-    z-index: 4;
-}
-
 .for-all {
     display: flex;
     align-items: flex-start;
@@ -293,18 +282,6 @@ button {
         .button-white:hover {
             background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
         }
-        footer{
-            fill: #22202A;
-            color: #967D60;
-            font-family: "Inria Serif";
-            font-size: 40px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            width: 100%;
-            background-color: #22202A;
-            justify-content: center;
-        }
         
 .login-register {
     margin-left: auto;
@@ -324,3 +301,31 @@ button {
     line-height: normal;
     margin: 20px;
   }
+  .footer {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    background-color: #22202A;
+    color: #967D60;
+    font-family: "Inria Serif";
+    font-size: 40px;
+    font-weight: 400;
+    width: 100%;
+    height: 100px; /* Ajuste conforme necessário */
+}
+
+.footer-content {
+    display: flex;
+    align-items: center; 
+    gap: 10px; /* Espaço entre a imagem e o texto */
+}
+
+.footer-logo {
+    width: 50px; /* Ajuste conforme necessário */
+    height: auto;
+}
+
+.footer-text {
+    margin: 0; /* Remove margens padrão */
+    white-space: nowrap; /* Evita que o texto quebre */
+}

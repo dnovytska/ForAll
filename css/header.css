@@ -1,0 +1,114 @@
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+      "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+      "Source Han Sans CN", sans-serif;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .main-container {
+    width: 100%;
+    height: auto; 
+    overflow: hidden;
+    background-color:#473d3b;
+  }
+  
+  .main-container,
+  .main-container * {
+    box-sizing: border-box;
+  }
+  
+  .rectangle {
+    position: relative;
+    width: 100%; 
+    height: 76px;
+    background: #22202a;
+  }
+  
+  .rectangle-1 {
+    position: absolute;
+    width: 100%;
+    height: 76px;
+    top: 0;
+    left: 0;
+    background: #22202a;
+    z-index: 1;
+  }
+  
+  .rh-logo {
+    position: absolute;
+    width: 61px;
+    height: 61px;
+    top: 7px;
+    left: 7px;
+    background: url(../images/logo.png);
+    background-size: cover;
+    z-index: 4;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center; 
+    margin: 10px 0; 
+  }
+  
+  .menu-item img {
+    width: 24px; 
+    height: 24px; 
+    margin-right: 10px; 
+  }
+  
+  .username {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    height: 24px;
+    top: 16px;
+    left: 1128px; 
+    color: #e5e5ec;
+    font-family: Inria Serif, var(--default-font-family);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.98px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 54;
+  }
+  
+  .rectangle-2 {
+    background-color: #473d3b;
+  }
+  
+
+  
+  input[type="text"], select {
+    width: 100%; 
+    padding: 10px; 
+    margin: 10px 0; 
+    border: 1px solid #473d3b; 
+    border-radius: 5px; 
+    font-size: 16px; 
+}
+label {
+    font-family: "Inria Serif", sans-serif;
+    font-size: 24px;
+    color: #22202a;
+    margin-top: 10px;
+    display: block; 
+}
+.menu-option {
+    display: flex;
+    align-items: center;
+    margin: 10px 0; 
+}
+.menu-option img {
+    width: 24px;
+    height: 24px; 
+    margin-right: 10px; 
+}

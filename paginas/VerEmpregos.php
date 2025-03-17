@@ -115,7 +115,12 @@ $result = $conn->query($sql);
                             Criar Novo Emprego
                         </a>
                     </div>
-                    <span class="username">Username</span>
+                    <div class="menu-item">
+                        <a href="PerfilEmpregador.php">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Username
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

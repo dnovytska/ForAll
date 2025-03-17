@@ -1,22 +1,18 @@
 <?php
-// Conectar ao banco de dados
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "psiforall";
 
-// Criar conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar a conexão
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// ID do candidato (ajuste para pegar da sessão)
-$idcandidato = 1; // Alterar para pegar o ID do usuário logado
 
-// Buscar os dados do candidato
+$idcandidato = 1; 
+
 $sql = "SELECT nome, email, telefone, data_nascimento FROM candidatos WHERE idcandidato = $idcandidato";
 $result = $conn->query($sql);
 
@@ -37,39 +33,10 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>For All</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
-    <link rel="stylesheet" href="../css/CV.css" />
+    <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/globals.css" />
-    <style>
-        input[type="text"],
-        input[type="email"] {
-            width: 100%; 
-            padding: 10px; 
-            margin: 10px 0; 
-            border: 1px solid #473d3b; 
-            border-radius: 5px; 
-            font-size: 16px; 
-        }
-        label {
-            font-family: "Inria Serif", sans-serif;
-            font-size: 24px;
-            color: #22202a;
-            margin-top: 10px;
-            display: block; 
-        }
-        .menu-option {
-            display: flex;
-            align-items: center;
-            margin: 10px 0; 
-        }
-        .menu-option img {
-            width: 24px;
-            height: 24px; 
-            margin-right: 10px; 
-        }
-    </style>
 </head>
 <body>
-    
     <header>
         <div class="main-container">
             <div class="slice">
