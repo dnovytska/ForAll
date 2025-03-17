@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,29 +87,34 @@
             </div>
         </div>
     </header>
-    
     <main>
         <div>
-            <h1>Curriculo</h1>
+            <h1>Currículo</h1>
         </div>
-        <div class="flex-row-f">
-            <div class="ellipse"></div>
-            <div class="design-unnamed"></div>
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" class="nome-input" placeholder="Digite seu nome" />
-            <label for="email">Email</label>
-            <input type="email" id="email" class="email-input" placeholder="Digite seu email" />
-            <label for="telemovel">Telemóvel</label>
-            <input type="text" id="telemovel" class="telemovel-input" placeholder="Digite seu telemóvel" />
-            <label for="data-nascimento">Data de Nascimento</label>
-            <input type="text" id="data-nascimento" class="data-nascimento-input" placeholder="dd/mm/yyyy" />
-            <label for="habilitacoes">Habilitações Acadêmicas</label>
-            <input type="text" id="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" />
-            <label for="experiencia">Anos de Experiência</label>
-            <input type="text" id="experiencia" class="experiencia-input" placeholder="Anos de experiência" />
-            <button class="button-black">PDF</button>
-            <button class="button-black" >Aceitar Candidato</button>
-        </div>
+        <form action="/submit-form" method="POST">
+            <div class="flex-row-f">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" class="nome-input" placeholder="Digite seu nome" required />
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="email-input" placeholder="Digite seu email" required />
+
+                <label for="telemovel">Telemóvel</label>
+                <input type="text" id="telemovel" name="telemovel" class="telemovel-input" placeholder="Digite seu telemóvel" required />
+
+                <label for="data-nascimento">Data de Nascimento</label>
+                <input type="text" id="data-nascimento" name="data-nascimento" class="data-nascimento-input" placeholder="dd/mm/yyyy" required />
+
+                <label for="habilitacoes">Habilitações Acadêmicas</label>
+                <input type="text" id="habilitacoes" name="habilitacoes" class="habilitacoes-input" placeholder="Digite suas habilitações" required />
+
+                <label for="experiencia">Anos de Experiência</label>
+                <input type="text" id="experiencia" name="experiencia" class="experiencia-input" placeholder="Anos de experiência" required />
+
+                <button type="submit" class="button-black">PDF</button>
+                <button type="submit" class="button-black">Aceitar Candidato</button>
+            </div>
+        </form>
         <footer>
             <div class="rectangle-f"></div>
         </footer>
