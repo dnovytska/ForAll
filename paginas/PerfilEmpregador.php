@@ -1,22 +1,34 @@
 <?php
-// Conectar ao banco de dados
+session_start();  // Iniciar a sessão para pegar o ID do usuário logado
+
+// Verificar se o ID do usuário está armazenado na sessão
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+    die("Erro: usuário não está logado ou o ID do usuário não foi encontrado na sessão.");
+}
+
+// Recuperar o ID do usuário da sessão
+$idempregador = $_SESSION['user_id'];
+
+// Garantir que o ID seja um número inteiro
+if (!is_numeric($idempregador)) {
+    die("Erro: ID do usuário inválido.");
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "psiforall";
 
-// Criar conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar a conexão
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-$idcandidato = 1;
+// Exibir o ID do usuário para debug
+// echo "ID do usuário logado: " . $idempregador . "<br>";  // Remover após o teste
 
-// Buscar os dados do candidato
-$sql = "SELECT nome, email, telefone FROM empregadores WHERE idempregador = $idcandidato";
+$sql = "SELECT nome, email, telefone FROM empregadores WHERE idempregador = $idempregador";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -60,6 +72,12 @@ $conn->close();
                         </a>
                     </div>
                     <div class="menu-item">
+                        <a href="VerEmpregos.php">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Meus Empregos
+                        </a>
+                    </div>
+                    <div class="menu-item">
                         <a href="notificacoes.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Notificações
@@ -71,16 +89,26 @@ $conn->close();
                             Sobre Nós
                         </a>
                     </div>
-                    <span class="username"><?php echo htmlspecialchars($row['nome']); ?></span>
+                    <div class="menu-item">
+                        <a href="CriarEmprego.php">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Criar Novo Emprego
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a href="PerfilEmpregador.php">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            <?php echo htmlspecialchars($row['nome']); ?>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
     <main>
-        <img src="../images/circle.png" alt="Foto de perfil">
         <div>
             <h1>Olá, <?php echo htmlspecialchars($row['nome']); ?></h1>
-            <button onclick="window.location.href='EditarPerfilEmpregador.php'">Editar Perfil</button>
+            <button class="button-black" onclick="window.location.href='EditarPerfilEmpregador.php'">Editar Perfil</button>
         </div>
         <div>
             <div class="data-perfil">
@@ -101,7 +129,7 @@ $conn->close();
     <script>
         function confirmarExclusao() {
             if (confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
-                window.location.href = "../php/ApagarContaCandidato.php";
+                window.location.href = "../php/ApagarContaEmpregador.php"; // Ajustar para o script correto de exclusão
             }
         }
     </script>

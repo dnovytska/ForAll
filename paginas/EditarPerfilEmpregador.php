@@ -1,4 +1,19 @@
 <?php
+session_start(); // Iniciar a sessão para pegar o ID do usuário logado
+
+// Verificar se o ID do usuário está armazenado na sessão
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+    die("Erro: usuário não está logado ou o ID do usuário não foi encontrado na sessão.");
+}
+
+// Recuperar o ID do usuário da sessão
+$idempregador = $_SESSION['user_id'];
+
+// Garantir que o ID seja um número inteiro
+if (!is_numeric($idempregador)) {
+    die("Erro: ID do usuário inválido.");
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -9,8 +24,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
-$idempregador = 1; 
 
+// Consultar os dados do empregador
 $sql = "SELECT nome, email, telefone FROM empregadores WHERE idempregador = $idempregador";
 $result = $conn->query($sql);
 
@@ -78,27 +93,32 @@ $conn->close();
                             Criar Novo Emprego
                         </a>
                     </div>
-                    <span class="username">Username</span>
+                    <div class="menu-item">
+                        <a href="PerfilEmpregador.php">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            <?php echo htmlspecialchars($row['nome']); ?>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
-<body>
 
-    <h2>Editar Perfil</h2><form action="../php/SalvarPerfilEmpregador.php" method="post">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required>
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($row['email']); ?>" required>
-    
-    <label for="telefone">Telefone:</label>
-    <input type="tel" id="telefone" name="telefone" value="<?php echo htmlspecialchars($row['telefone']); ?>" required>
-    
-    <button type="submit">Salvar</button>
-    <button type="button" onclick="window.location.href='PerfilEmpregador.php'">Cancelar</button>
-</form>
-
-
+    <main>
+        <h2>Editar Perfil</h2>
+        <form action="../php/SalvarPerfilEmpregador.php" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($row['email']); ?>" required>
+            
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" value="<?php echo htmlspecialchars($row['telefone']); ?>" required>
+            
+            <button type="submit">Salvar</button>
+            <button type="button" onclick="window.location.href='PerfilEmpregador.php'">Cancelar</button>
+        </form>
+    </main>
 </body>
 </html>

@@ -71,7 +71,7 @@
     height: 24px;
     top: 16px;
     left: 1128px; 
-    color: #e5e5ec;
+    color: #d9d9d9;
     font-family: Inria Serif, var(--default-font-family);
     font-size: 20px;
     font-weight: 400;
@@ -111,4 +111,51 @@ label {
     width: 24px;
     height: 24px; 
     margin-right: 10px; 
+}
+.auth-buttons {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 15px;
+}
+
+.login-register {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    color: d9d9d9;
+}
+
+.login-register:first-child { 
+    border-radius: 10px;
+    border: 1px solid #473D3B;
+    background: #967D60;
+    color: #22202A;
+    font-family: "Inria Serif";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.login-register:last-child { 
+    border-radius: 10px;
+    border: 1px solid #473D3B;
+    background: #473D3B;
+    color: #22202A;
+    font-family: "Inria Serif";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.login-register:hover {
+    opacity: 0.8;
 }
