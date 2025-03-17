@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Redireciona para a página apropriada
         if ($role == 'candidato') {
-            header("Location: PerfilCandidato.php?id=" . $_SESSION['user_id']);
+            header("Location: ../paginas/PerfilCandidato.php?id=" . $_SESSION['user_id']);
         } elseif ($role == 'empregador') {
             header("Location: ../paginas/PerfilEmpregador.php?id=" . $_SESSION['user_id']);
         } elseif ($role == 'admin') {

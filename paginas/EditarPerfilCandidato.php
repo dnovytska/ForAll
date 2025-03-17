@@ -1,23 +1,32 @@
 <?php
-// Conectar ao banco de dados
+session_start(); // Iniciar a sessão para pegar o ID do usuário logado
+
+// Verificar se o ID do usuário está armazenado na sessão
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+    die("Erro: usuário não está logado ou o ID do usuário não foi encontrado na sessão.");
+}
+
+// Recuperar o ID do usuário da sessão
+$idcandidato = $_SESSION['user_id'];
+
+// Garantir que o ID seja um número inteiro
+if (!is_numeric($idcandidato)) {
+    die("Erro: ID do usuário inválido.");
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "psiforall";
 
-// Criar conexão
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar a conexão
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// ID do candidato (pode ser obtido da sessão, mas por agora vamos definir manualmente)
-$idcandidato = 1; // Ajusta conforme necessário
-
 // Buscar os dados do candidato
-$sql = "SELECT nome, email, telefone, data_nascimento, anos_expriencia, habilitacoes_academicas FROM candidatos WHERE idcandidato = $idcandidato";
+$sql = "SELECT nome, email, telefone, data_nascimento, anos_experiencia, habilitacoes_academicas FROM candidatos WHERE idcandidato = $idcandidato";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -61,12 +70,6 @@ $conn->close();
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="VerEmpregos.php">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Meus Empregos
-                        </a>
-                    </div>
-                    <div class="menu-item">
                         <a href="notificacoes.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Notificações
@@ -79,47 +82,46 @@ $conn->close();
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="CriarEmprego.php">
+                        <a href="PerfilCandidato.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
-                            Criar Novo Emprego
+                            <?php echo htmlspecialchars($row['nome']); ?>
                         </a>
                     </div>
-                    <span class="username">Username</span>
                 </div>
             </div>
         </div>
     </header>
-<body>
 
-    <h2>Editar Perfil</h2><form action="../php/SalvarPerfilCandidato.php" method="post">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required>
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($row['email']); ?>" required>
-    
-    <label for="telefone">Telefone:</label>
-    <input type="tel" id="telefone" name="telefone" value="<?php echo htmlspecialchars($row['telefone']); ?>" required>
-    
-    <label for="data_nascimento">Data de Nascimento:</label>
-    <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo $row['data_nascimento']; ?>" required>
-    
-    <label for="habilitacoes">Habilitações Acadêmicas:</label>
-    <select id="habilitacoes" name="habilitacoes">
-        <option value="Ensino Médio" <?php if ($row['habilitacoes_academicas'] == 'Ensino Médio') echo 'selected'; ?>>Ensino Médio</option>
-        <option value="Graduação" <?php if ($row['habilitacoes_academicas'] == 'Graduação') echo 'selected'; ?>>Graduação</option>
-        <option value="Pós-graduação" <?php if ($row['habilitacoes_academicas'] == 'Pós-graduação') echo 'selected'; ?>>Pós-graduação</option>
-        <option value="Mestrado" <?php if ($row['habilitacoes_academicas'] == 'Mestrado') echo 'selected'; ?>>Mestrado</option>
-        <option value="Doutorado" <?php if ($row['habilitacoes_academicas'] == 'Doutorado') echo 'selected'; ?>>Doutorado</option>
-    </select>
-    
-    <label for="experiencia">Anos de Experiência:</label>
-    <input type="number" id="experiencia" name="experiencia" value="<?php echo $row['anos_expriencia']; ?>" required>
-    
-    <button type="submit">Salvar</button>
-    <button type="button" onclick="window.location.href='PerfilCandidato.html'">Cancelar</button>
-</form>
-
-
+    <main>
+        <h2>Editar Perfil</h2>
+        <form action="../php/SalvarPerfilCandidato.php" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($row['email']); ?>" required>
+            
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" value="<?php echo htmlspecialchars($row['telefone']); ?>" required>
+            
+            <label for="data_nascimento">Data de Nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo $row['data_nascimento']; ?>" required>
+            
+            <label for="habilitacoes">Habilitações Acadêmicas:</label>
+            <select id="habilitacoes" name="habilitacoes">
+                <option value="Ensino Médio" <?php if ($row['habilitacoes_academicas'] == 'Ensino Médio') echo 'selected'; ?>>Ensino Médio</option>
+                <option value="Graduação" <?php if ($row['habilitacoes_academicas'] == 'Graduação') echo 'selected'; ?>>Graduação</option>
+                <option value="Pós-graduação" <?php if ($row['habilitacoes_academicas'] == 'Pós-graduação') echo 'selected'; ?>>Pós-graduação</option>
+                <option value="Mestrado" <?php if ($row['habilitacoes_academicas'] == 'Mestrado') echo 'selected'; ?>>Mestrado</option>
+                <option value="Doutorado" <?php if ($row['habilitacoes_academicas'] == 'Doutorado') echo 'selected'; ?>>Doutorado</option>
+            </select>
+            
+            <label for="experiencia">Anos de Experiência:</label>
+            <input type="number" id="experiencia" name="experiencia" value="<?php echo $row['anos_experiencia']; ?>" required>
+            
+            <button type="submit">Salvar</button>
+            <button type="button" onclick="window.location.href='PerfilCandidato.php'">Cancelar</button>
+        </form>
+    </main>
 </body>
 </html>

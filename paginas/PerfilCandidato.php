@@ -1,4 +1,19 @@
 <?php
+session_start();  // Iniciar a sessão para pegar o ID do usuário logado
+
+// Verificar se o ID do usuário está armazenado na sessão
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+    die("Erro: usuário não está logado ou o ID do usuário não foi encontrado na sessão.");
+}
+
+// Recuperar o ID do usuário da sessão
+$idcandidato = $_SESSION['user_id'];
+
+// Garantir que o ID seja um número inteiro
+if (!is_numeric($idcandidato)) {
+    die("Erro: ID do usuário inválido.");
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -10,16 +25,13 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-
-$idcandidato = 1; 
-
 $sql = "SELECT nome, email, telefone, data_nascimento FROM candidatos WHERE idcandidato = $idcandidato";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
 } else {
-    echo "Usuário não encontrado!";
+    echo "Utilizador não encontrado!";
     exit;
 }
 
@@ -31,7 +43,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For All</title>
+    <title>For All - Perfil</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/globals.css" />
@@ -68,16 +80,20 @@ $conn->close();
                             Sobre Nós
                         </a>
                     </div>
-                    <span class="username"><?php echo htmlspecialchars($row['nome']); ?></span>
+                    <div class="menu-item">
+                        <a href="PerfilCandidato.php">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            <?php echo htmlspecialchars($row['nome']); ?>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
     <main>
-        <img src="../images/circle.png" alt="Foto de perfil">
         <div>
             <h1>Olá, <?php echo htmlspecialchars($row['nome']); ?></h1>
-            <button onclick="window.location.href='EditarPerfilCandidato.php'">Editar Perfil</button>
+            <button class="button-black" onclick="window.location.href='EditarPerfilCandidato.php'">Editar Perfil</button>
         </div>
         <div>
             <div class="data-perfil">
@@ -87,7 +103,7 @@ $conn->close();
                 <p class="p-perfil"><strong>Número de Telefone:</strong> <?php echo htmlspecialchars($row['telefone']); ?></p>
             </div>
             <div>
-                <button class="button-white" onclick="window.location.href='logout.php'">Logout</button>
+                <button class="button-white" onclick="window.location.href='../php/Logout.php'">Logout</button>
                 <button class="button-black" onclick="confirmarExclusao()">Apagar Conta</button>
             </div>
         </div>
