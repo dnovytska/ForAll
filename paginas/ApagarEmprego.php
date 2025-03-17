@@ -10,11 +10,9 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Verifica se o ID do emprego foi enviado
 if (isset($_GET['id'])) {
     $idemprego = $_GET['id'];
 
-    // Deleta o emprego do banco de dados
     $sql = "DELETE FROM empregos WHERE idemprego = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $idemprego);

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>For All - Empregos</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
-    <link rel="stylesheet" href="../css/CV.css" />
+    <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/ProcurarEmprego.css" />
     <link rel="stylesheet" href="../css/globals.css" />
 </head>
@@ -28,13 +28,13 @@
             </div>
             <div class="rectangle-2">
                 <div class="menu-item">
-                    <a href="pagina_principal.html">
+                    <a href="PaginaPrincipal.html">
                         <img src="../images/circle.png" alt="Circle Icon" />
                         Página Principal
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a href="sobre_nos.html">
+                    <a href="SobreNos.html">
                         <img src="../images/circle.png" alt="Circle Icon" />
                         Sobre Nós
                     </a>

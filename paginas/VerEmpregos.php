@@ -86,13 +86,13 @@ $result = $conn->query($sql);
                 </div>
                 <div class="rectangle-2">
                     <div class="menu-item">
-                        <a href="pagina_principal.html">
+                        <a href="PaginaPrincipal.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Página Principal
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="meus_empregos.html">
+                        <a href="VerEmpregos.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Meus Empregos
                         </a>
@@ -104,18 +104,23 @@ $result = $conn->query($sql);
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="sobre_nos.html">
+                        <a href="SobreNos.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Sobre Nós
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="criar_emprego.html">
+                        <a href="CriarEmprego.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Criar Novo Emprego
                         </a>
                     </div>
-                    <span class="username">Username</span>
+                    <div class="menu-item">
+                        <a href="PerfilEmpregador.php">
+                            <img src="../images/circle.png" alt="Circle Icon" />
+                            Username
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

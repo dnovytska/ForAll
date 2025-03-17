@@ -5,38 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>For All</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
-    <link rel="stylesheet" href="../css/CV.css" />
+    <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/globals.css" />
-    <style>
-        input[type="text"], select {
-            width: 100%; 
-            padding: 10px; 
-            margin: 10px 0; 
-            border: 1px solid #473d3b; 
-            border-radius: 5px; 
-            font-size: 16px; 
-        }
-        label {
-            font-family: "Inria Serif", sans-serif;
-            font-size: 24px;
-            color: #22202a;
-            margin-top: 10px;
-            display: block; 
-        }
-        .menu-option {
-            display: flex;
-            align-items: center;
-            margin: 10px 0; 
-        }
-        .menu-option img {
-            width: 24px;
-            height: 24px; 
-            margin-right: 10px; 
-        }
-    </style>
 </head>
 <body>
-    
     <header>
         <div class="main-container">
             <div class="slice">
@@ -51,13 +23,13 @@
                 </div>
                 <div class="rectangle-2">
                     <div class="menu-item">
-                        <a href="pagina_principal.html">
+                        <a href="PaginaPrincipal.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Página Principal
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="meus_empregos.html">
+                        <a href="VerEmpregos.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Meus Empregos
                         </a>
@@ -69,13 +41,13 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="sobre_nos.html">
+                        <a href="SobreNos.html">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Sobre Nós
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a href="criar_emprego.html">
+                        <a href="CriarEmprego.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Criar Novo Emprego
                         </a>
@@ -167,7 +139,7 @@
                 <input type="text" id="nome-empresa" name="nome-empresa" class="nome-empresa-input" placeholder="Digite o nome da empresa" required />
 
                 <button type="submit" class="button-black">Salvar</button>
-                <button type="button" class="button-black" onclick="window.location.href='pagina_principal.html'">Cancelar</button>
+                <button type="button" class="button-black" onclick="window.location.href='PaginaPrincipal.html'">Cancelar</button>
             </form>
         </div>
 
