@@ -258,7 +258,8 @@ button {
             font-style: normal;
             font-weight: 700;
             line-height: normal;
-        }.button-container {
+        }
+        .button-container {
             display: flex; 
             justify-content: space-between;
             margin: 20px; 

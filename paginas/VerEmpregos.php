@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+// Verificar se o usuário está logado e se é um empregador
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'empregador') {
+    header("Location: login.php"); // Redirecionar para a página de login se não estiver logado ou não for empregador
+    exit();
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -10,9 +18,13 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Busca os empregos no banco de dados
-$sql = "SELECT idemprego, titulo, responsabilidades FROM empregos";
-$result = $conn->query($sql);
+// Buscar empregos criados pelo empregador logado
+$idempregador = $_SESSION['user_id'];  // ID do empregador logado
+$sql = "SELECT idemprego, titulo, responsabilidades FROM empregos WHERE idempregador = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $idempregador);  // Bind o ID do empregador
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
