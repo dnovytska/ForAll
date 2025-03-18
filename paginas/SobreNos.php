@@ -3,52 +3,126 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || $_SESSION['role'] !== 'empregador') {
-    die("Erro: Acesso não autorizado.");
-}
-
-$idempregador = $_SESSION['user_id'];
-
-if (!filter_var($idempregador, FILTER_VALIDATE_INT)) {
-    die("Erro: ID inválido.");
-}
-
+$user_name = null;
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "psiforall";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Verificar se o usuário está logado
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    if ($conn->connect_error) {
+        die("Erro de conexão: " . $conn->connect_error);
+    }
 
-if ($conn->connect_error) {
-    die("Erro de conexão: " . $conn->connect_error);
+    $user_id = $_SESSION['user_id'];
+    $role = $_SESSION['role'];
+    
+    switch ($role) {
+        case 'candidato':
+            $sql = "SELECT nome FROM candidatos WHERE idcandidato = ?";
+            break;
+        case 'empregador':
+            $sql = "SELECT nome FROM empregadores WHERE idempregador = ?";
+            break;
+        case 'admin':
+            $sql = "SELECT nome FROM administradores WHERE idadmin = ?";
+            break;
+        default:
+            $sql = "";
+    }
+
+    if (!empty($sql)) {
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $user_name = $row['nome'];
+        }
+    }
+    $conn->close();
 }
-
-$sql = "SELECT nome, email, telefone FROM empregadores WHERE idempregador = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $idempregador);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $empregador = $result->fetch_assoc();
-} else {
-    die("Usuário não encontrado!");
-}
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For All - Editar Perfil</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/globals.css">
-    <link rel="stylesheet" href="../css/EditarPerfilEmpregador.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre Nós - For All</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/globals.css" />
+    <style>
+        body {
+            background-color: #FFFFFF;
+            font-family: 'Inria Serif', serif;
+            color: #473D3B;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sobre-nos {
+            background-color: #F5F5F5;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .for-all-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .for-all-title img {
+            width: 50px;
+            height: 50px;
+        }
+
+        h1 {
+            color: #22202A;
+            font-size: 2.8em;
+            margin: 0;
+        }
+
+        h2 {
+            color: #967D60;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        footer {
+            background-color: #22202A;
+            color: #E5E5EC;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -115,32 +189,22 @@ $conn->close();
 </header>
 
 <main>
-    <h2>Editar Perfil</h2>
-    <form action="../php/SalvarPerfilEmpregador.php" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($empregador['nome'] ?? '') ?>" required>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?= htmlspecialchars($empregador['email'] ?? '') ?>" required>
-        
-        <label for="telefone">Telefone:</label>
-        <input type="tel" id="telefone" name="telefone" value="<?= htmlspecialchars($empregador['telefone'] ?? '') ?>" required>
-        
-        <button type="submit">Salvar</button>
-        <button type="button" onclick="window.location.href='PerfilEmpregador.php'">Cancelar</button>
-    </form>
+    <div class="sobre-nos">
+        <img src="../images/logo.png" alt="Logo For All" width="200">
+        <div class="for-all-title">
+            <img class="image-circle" src="../images/circle.png" alt="">
+            <h1>For All</h1>
+            <img class="image-circle" src="../images/circle.png" alt="">
+        </div>
+        <h2>Gestão de Recursos Humanos</h2>
+        <p>Soluções integradas para gestão de talentos e recrutamento</p>
+        <p>Email: forall@support.com</p>
+        <p>Telefone: +351 123 456 789</p>
+    </div>
 </main>
 
 <footer>
     <p>&copy; 2023 For All. Todos os direitos reservados.</p>
 </footer>
-
-<script>
-    function confirmarExclusao() {
-        if (confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
-            window.location.href = "../php/ApagarContaEmpregador.php";
-        }
-    }
-</script>
 </body>
 </html>

@@ -1,22 +1,72 @@
 
-.rectangle-1 {
+
+body {
+  text-align: center;
+}
+main {
   display: flex;
-  align-items: center; /* Alinha verticalmente os itens dentro do retângulo */
-  flex-grow: 1; /* Permite que o retângulo 1 ocupe o espaço disponível */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.auth-buttons {
-  margin-left: auto; /* Empurra os botões para a direita */
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Distribui o espaço igualmente entre os elementos */
+  width: 100%;
+  gap: 10px;
+  margin: 0px;
 }
 
-.auth-buttons {
-  margin-left: 10px; /* Espaço entre os botões */
-  padding: 10px 15px; /* Estilo dos botões */
+.button-container > div {
+  flex: 1; /* Faz as duas colunas ocuparem o mesmo espaço */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
 }
 
-.auth-buttons button:hover {
-  background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+.button-table {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
-.login-register {
-  margin-left: auto;
+.button-table button {
+  flex: 1 1 calc(33.33% - 10px);
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #333;
+  background-color: white; 
+  color: black; 
+  cursor: pointer;
+  transition: 0.3s;
+  width: 80%; 
+}
+
+.button-table button:hover {
+  background-color: #ddd;
+}
+
+.button-table button.selected {
+  background-color: black; 
+  color: white; 
+}
+
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
+}
+
+.search-button {
+  margin-top: 20px;
+}
+.button-procurar{
+  display: flex;
+  justify-content: center;
 }
