@@ -1,0 +1,123 @@
+body {
+    font-family: "Inria Serif", sans-serif;
+}
+
+main {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.candidate-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.candidate-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.candidate-item h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: black; /* Torna o título preto */
+    text-decoration: none; /* Remove qualquer decoração de link */
+    cursor: default; /* Remove o cursor de link */
+}
+
+.candidate-item p {
+    margin: 5px 0;
+}
+
+.delete-button {
+    padding: 5px 10px;
+    background-color: #473D3B;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
+}
+
+.delete-button:active {
+    background-color: #b71c1c;
+}
+
+.job-listing {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.job-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: black; /* Torna o título preto */
+    text-decoration: none; /* Remove qualquer decoração de link */
+    cursor: default; /* Remove o cursor de link */
+}
+
+.job-company {
+    font-size: 16px;
+    color: #555;
+}
+
+.job-actions {
+    margin-top: 10px;
+}
+
+.job-actions a {
+    margin-right: 10px;
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.job-actions a.delete {
+    background-color: #f44336;
+}
+
+h2 {
+    font-size: 22px; /* Tamanho de fonte */
+    font-weight: bold; /* Negrito */
+    color: black; /* Cor preta */
+    margin-bottom: 10px; /* Espaço abaixo do título */
+    text-decoration: none; /* Remove qualquer sublinhado ou estilo de link */
+    cursor: default; /* Remove o cursor de link */
+}
+
+
+a {
+    color: black; /* Cor padrão do link */
+    text-decoration: none; /* Remove o sublinhado */
+    font-weight: bold; /* Deixa o texto em negrito */
+    transition: color 0.3s ease; /* Transição suave de cor */
+}
+
+a:hover {
+    color: #967D60; /* Cor quando o mouse passa por cima */
+}
+
+a:active {
+    color: #f44336; /* Cor quando o link é clicado */
+}
+
+a:visited {
+    color: #6c757d; /* Cor após o link ser visitado */
+}

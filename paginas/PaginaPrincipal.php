@@ -81,7 +81,7 @@
     </style>
 </head>
 <body>
-    <header>
+<header>
     <div class="main-container">
         <div class="slice">
             <div class="rectangle">
@@ -91,29 +91,107 @@
                     </div>
                     <span class="for-all">For all</span>
                     <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
-                    <div class="auth-buttons">
-                        <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
-                        <button class="login-register" onclick="window.location.href='Registo.html'">Registar-se</button>
-                    </div>
+
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
+                        echo '<div class="auth-buttons">';
+                        if (isset($_SESSION['username'])) {
+                            echo '<button class="user-profile">' . htmlspecialchars($_SESSION['username']) . '</button>';
+                        }
+                        echo '</div>';
+                    } else {
+                        echo '<div class="auth-buttons">';
+                        echo '<button class="login-register" onclick="window.location.href=\'Login.php\'">Login</button>';
+                        echo '<button class="login-register" onclick="window.location.href=\'Registo.html\'">Registar-se</button>';
+                        echo '</div>';
+                    }
+                    ?>
                 </div>
             </div>
+
             <div class="rectangle-2">
-                <div class="menu-item">
-                    <a href="PaginaPrincipal.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Página Principal
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a href="SobreNos.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Sobre Nós
-                    </a>
-                </div>
+            <?php
+            // Verificar o tipo de usuário logado
+            if (isset($_SESSION['role'])) {
+                // Conectar ao banco de dados
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "psiforall";
+
+                // Criar a conexão
+                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                // Verificar se a conexão foi bem-sucedida
+                if ($conn->connect_error) {
+                    die("Erro de conexão: " . $conn->connect_error);
+                }
+
+                // Recuperar o ID do usuário da sessão
+                $user_id = $_SESSION['user_id'];
+
+                // Definir o nome do usuário com um valor padrão
+                $user_name = "Usuário não encontrado";
+
+                // Buscar o nome do usuário com base no tipo de usuário
+                if ($_SESSION['role'] == 'candidato') {
+                    // Buscar o nome na tabela 'candidatos'
+                    $sql = "SELECT nome FROM candidatos WHERE idcandidato = '$user_id'";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $user_name = $row['nome'];
+                    }
+                } elseif ($_SESSION['role'] == 'empregador') {
+                    // Buscar o nome na tabela 'empregadores'
+                    $sql = "SELECT nome FROM empregadores WHERE idempregador = '$user_id'";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $user_name = $row['nome'];
+                    }
+                } elseif ($_SESSION['role'] == 'admin') {
+                    // Buscar o nome na tabela 'administradores'
+                    $sql = "SELECT nome FROM administradores WHERE idadmin = '$user_id'";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $user_name = $row['nome'];
+                    }
+                }
+
+                // Fechar a conexão com o banco de dados
+                $conn->close();
+
+                // Exibir os itens do menu com base no tipo de usuário
+                if ($_SESSION['role'] == 'candidato') {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.html"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                    echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                } elseif ($_SESSION['role'] == 'empregador') {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.html"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                    echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
+                    echo '<div class="menu-item"><a href="notificacoes.html"><img src="../images/circle.png" alt="Circle Icon" />Notificações</a></div>';
+                    echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                } elseif ($_SESSION['role'] == 'admin') {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.html"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                    echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    echo '<div class="menu-item"><a href="default.php"><img src="../images/circle.png" alt="Circle Icon" />default</a></div>';
+                }
+            } else {
+                // Caso o usuário não esteja logado
+                echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                echo '<div class="menu-item"><a href="SobreNos.html"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+            }
+            ?>
             </div>
         </div>
     </div>
 </header>
+
 
     <main>
         <h1>Procura seu Futuro Emprego!</h1>

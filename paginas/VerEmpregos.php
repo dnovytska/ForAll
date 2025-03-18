@@ -1,9 +1,8 @@
 <?php
 session_start();
 
-// Verificar se o usuário está logado e se é um empregador
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'empregador') {
-    header("Location: login.php"); // Redirecionar para a página de login se não estiver logado ou não for empregador
+    header("Location: login.php"); 
     exit();
 }
 
@@ -18,11 +17,10 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 
-// Buscar empregos criados pelo empregador logado
-$idempregador = $_SESSION['user_id'];  // ID do empregador logado
+$idempregador = $_SESSION['user_id'];  
 $sql = "SELECT idemprego, titulo, responsabilidades FROM empregos WHERE idempregador = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $idempregador);  // Bind o ID do empregador
+$stmt->bind_param("i", $idempregador);  
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -36,107 +34,127 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
     <link rel="stylesheet" href="../css/CV.css" />
     <link rel="stylesheet" href="../css/globals.css" />
-    <style>
-        main {
-            padding: 20px;
-            font-family: "Inria Serif", sans-serif;
-        }
-        .job-listing {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .job-title {
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .job-company {
-            font-size: 16px;
-            color: #555;
-        }
-        .job-actions {
-            margin-top: 10px;
-        }
-        .job-actions a {
-            margin-right: 10px;
-            text-decoration: none;
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-        }
-        .job-actions a.delete {
-            background-color: #f44336;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/ListarDados.css" />
     <script>
-        // Função para confirmar a exclusão
         function confirmarExclusao(id) {
-            // Confirmação usando uma caixa de diálogo do navegador
             var confirmar = confirm("Você tem certeza que deseja apagar este emprego?");
             if (confirmar) {
-                // Se confirmado, redireciona para a página de exclusão com o ID do emprego
                 window.location.href = "ApagarEmprego.php?id=" + id;
             }
         }
     </script>
 </head>
 <body>
-    <header>
-        <div class="main-container">
-            <div class="slice">
-                <div class="rectangle">
-                    <div class="rectangle-1">
-                        <div class="rh-logo">
-                            <img src="../images/logo.png" alt="Logo">
-                        </div>
-                        <span class="for-all">For all</span>
-                        <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
+<header>
+    <div class="main-container">
+        <div class="slice">
+            <div class="rectangle">
+                <div class="rectangle-1">
+                    <div class="rh-logo">
+                        <img src="../images/logo.png" alt="Logo">
                     </div>
-                </div>
-                <div class="rectangle-2">
-                    <div class="menu-item">
-                        <a href="PaginaPrincipal.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Página Principal
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="VerEmpregos.php">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Meus Empregos
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="notificacoes.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Notificações
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="SobreNos.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Sobre Nós
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="CriarEmprego.php">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Criar Novo Emprego
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="PerfilEmpregador.php">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Username
-                        </a>
-                    </div>
+                    <span class="for-all">For all</span>
+                    <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
+
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
+                        echo '<div class="auth-buttons">';
+                        if (isset($_SESSION['username'])) {
+                            echo '<button class="user-profile">' . htmlspecialchars($_SESSION['username']) . '</button>';
+                        }
+                        echo '</div>';
+                    } else {
+                        echo '<div class="auth-buttons">';
+                        echo '<button class="login-register" onclick="window.location.href=\'Login.php\'">Login</button>';
+                        echo '<button class="login-register" onclick="window.location.href=\'Registo.html\'">Registar-se</button>';
+                        echo '</div>';
+                    }
+                    ?>
                 </div>
             </div>
+
+            <div class="rectangle-2">
+            <?php
+            // Verificar o tipo de usuário logado
+            if (isset($_SESSION['role'])) {
+                // Conectar ao banco de dados
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "psiforall";
+
+                // Criar a conexão
+                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                // Verificar se a conexão foi bem-sucedida
+                if ($conn->connect_error) {
+                    die("Erro de conexão: " . $conn->connect_error);
+                }
+
+                // Recuperar o ID do usuário da sessão
+                $user_id = $_SESSION['user_id'];
+
+                // Definir o nome do usuário com um valor padrão
+                $user_name = "Usuário não encontrado";
+
+                // Buscar o nome do usuário com base no tipo de usuário
+                if ($_SESSION['role'] == 'candidato') {
+                    // Buscar o nome na tabela 'candidatos'
+                    $sql = "SELECT nome FROM candidatos WHERE idcandidato = '$user_id'";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $user_name = $row['nome'];
+                    }
+                } elseif ($_SESSION['role'] == 'empregador') {
+                    // Buscar o nome na tabela 'empregadores'
+                    $sql = "SELECT nome FROM empregadores WHERE idempregador = '$user_id'";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $user_name = $row['nome'];
+                    }
+                } elseif ($_SESSION['role'] == 'admin') {
+                    // Buscar o nome na tabela 'administradores'
+                    $sql = "SELECT nome FROM administradores WHERE idadmin = '$user_id'";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $user_name = $row['nome'];
+                    }
+                }
+
+                // Fechar a conexão com o banco de dados
+                $conn->close();
+
+                // Exibir os itens do menu com base no tipo de usuário
+                if ($_SESSION['role'] == 'candidato') {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.html"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                    echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                } elseif ($_SESSION['role'] == 'empregador') {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.html"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                    echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
+                    echo '<div class="menu-item"><a href="notificacoes.html"><img src="../images/circle.png" alt="Circle Icon" />Notificações</a></div>';
+                    echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                } elseif ($_SESSION['role'] == 'admin') {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.html"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                    echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    echo '<div class="menu-item"><a href="default.php"><img src="../images/circle.png" alt="Circle Icon" />default</a></div>';
+                }
+            } else {
+                // Caso o usuário não esteja logado
+                echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                echo '<div class="menu-item"><a href="SobreNos.html"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+            }
+            ?>
+            </div>
         </div>
-    </header>
+    </div>
+</header>
     <main>
         <h2>Lista de Empregos</h2>
         <div id="job-container">
@@ -148,7 +166,6 @@ $result = $stmt->get_result();
                     echo "<div class='job-company'>Responsabilidades: " . htmlspecialchars($row['responsabilidades']) . "</div>";
                     echo "<div class='job-actions'>";
                     echo "<a href='EditarEmprego.php?id=" . $row['idemprego'] . "'>Editar</a>";
-                    // Alterado para usar o JavaScript
                     echo "<a href='#' class='delete' onclick='confirmarExclusao(" . $row['idemprego'] . ")'>Apagar</a>";
                     echo "</div>";
                     echo "</div>";
