@@ -8,13 +8,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'empregador') {
     die("Acesso não autorizado.");
 }
 
-// Configuração do banco de dados
+// Configuração do base de dados
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "psiforall";
 
-// Conectar ao banco de dados
+// Conectar ao base de dados
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verificar a conexão

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Verificar se o usuário está logado como empregador
+// Verificar se o utilizador está logado como empregador
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'empregador') {
     die("Acesso não autorizado");
 }

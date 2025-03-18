@@ -1,5 +1,5 @@
 <?php
-session_start(); // Iniciar sessão para verificar se o usuário está logado
+session_start(); // Iniciar sessão para verificar se o utilizador está logado
 include '../php/db.php';  // Arquivo de conexão com a base de dados
 
 // Verificar se o ID do emprego foi passado pela URL
@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
     $locationResult = mysqli_query($conn, $locationQuery);
     $location = mysqli_fetch_assoc($locationResult)['nome'];
 
-    // Verificar se o usuário já se candidatou a este emprego
+    // Verificar se o utilizador já se candidatou a este emprego
     $alreadyApplied = false;
     if (isset($_SESSION['user_id'])) {
         $userId = $_SESSION['user_id'];
@@ -42,13 +42,13 @@ if (isset($_GET['id'])) {
     exit;
 }
 
-// Recuperar o nome do usuário logado
+// Recuperar o nome do utilizador logado
 $user_name = "Usuário não encontrado";
 if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
     $user_id = $_SESSION['user_id'];
     $user_role = $_SESSION['role'];
 
-    // Recuperar o nome do usuário com base no tipo de usuário
+    // Recuperar o nome do utilizador com base no tipo de utilizador
     if ($user_role == 'candidato') {
         $sql = "SELECT nome FROM candidatos WHERE idcandidato = ?";
     } elseif ($user_role == 'empregador') {
@@ -145,7 +145,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
                     <?php else : ?>
                         <div class="auth-buttons">
                             <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
-                            <button class="login-register" onclick="window.location.href='Registo.html'">Registar-se</button>
+                            <button class="login-register" onclick="window.location.href='Registo.php'">Registar-se</button>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -153,7 +153,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 
             <div class="rectangle-2">
                 <?php
-                // Exibir os itens do menu com base no tipo de usuário
+                // Exibir os itens do menu com base no tipo de utilizador
                 if (isset($user_role)) {
                     if ($user_role == 'candidato') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
@@ -162,9 +162,10 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
                     } elseif ($user_role == 'empregador') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                         echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
                         echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                        
                     } elseif ($user_role == 'admin') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
@@ -203,16 +204,16 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
             <a href="Candidatar.php?emprego_id=<?php echo $job['idemprego']; ?>" class="apply-button">Candidatar-se</a>
         <?php endif; ?>
     <?php } else { ?>
-        <!-- Botão de login caso o usuário não esteja logado -->
+        <!-- Botão de login caso o utilizador não esteja logado -->
         <a href="login.php" class="apply-button">Fazer Login para Candidatar-se</a>
     <?php } ?>
 </main>
 
 <footer>
-    <p>&copy; 2023 For All. Todos os direitos reservados.</p>
+    <p>&copy; 2025 For All. Todos os direitos reservados.</p>
 </footer>
 
 <?php
-// Fechar a conexão com o banco de dados
+// Fechar a conexão com o base de dados
 mysqli_close($conn);
 ?>

@@ -37,20 +37,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
         case 'admin':
             $table = 'administradores';
-            $idField = 'idadministrador'; // Verifique se o nome está correto no banco!
+            $idField = 'idadministrador'; // Verifique se o nome está correto no base!
             break;
         default:
             die("Role inválido.");
     }
 
-    // Buscar usuário pelo email
+    // Buscar utilizador pelo email
     $sql = "SELECT $idField, password, nome FROM $table WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Verifica se o usuário foi encontrado
+    // Verifica se o utilizador foi encontrado
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
         
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         exit();
     } else {
-        // Mensagem de erro se o usuário não for encontrado
+        // Mensagem de erro se o utilizador não for encontrado
         die("Usuário não encontrado."); // Mensagem de erro
     }
 }

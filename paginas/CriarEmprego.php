@@ -71,7 +71,7 @@ $conn->close();
                     <?php else : ?>
                         <div class="auth-buttons">
                             <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
-                            <button class="login-register" onclick="window.location.href='Registo.html'">Registar-se</button>
+                            <button class="login-register" onclick="window.location.href='Registo.php'">Registar-se</button>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -79,7 +79,7 @@ $conn->close();
 
             <div class="rectangle-2">
                 <?php
-                // Exibir os itens do menu com base no tipo de usuário
+                // Exibir os itens do menu com base no tipo de utilizador
                 if (isset($user_role)) {
                     if ($user_role == 'candidato') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
@@ -88,9 +88,9 @@ $conn->close();
                     } elseif ($user_role == 'empregador') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                         echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
                         echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                     } elseif ($user_role == 'admin') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
@@ -173,7 +173,7 @@ $conn->close();
 </main>
 
 <footer>
-    <p>&copy; 2023 For All. Todos os direitos reservados.</p>
+    <p>&copy; 2025 For All. Todos os direitos reservados.</p>
 </footer>
 </body>
 </html>

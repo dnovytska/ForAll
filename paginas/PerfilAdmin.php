@@ -1,68 +1,34 @@
 <?php
 session_start();
-include '../php/db.php';
+include '../php/db.php'; // Arquivo de conexão com a base de dados
 
-// Verificar se o utilizador está logado
-if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
-    die("Erro: utilizador não está logado.");
+// Verificar se o utilizador é admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit;
 }
 
-// Verificar se o utilizador é um candidato
-if ($_SESSION['role'] !== 'candidato') {
-    die("Erro: apenas candidatos podem se candidatar a empregos.");
+// Recuperar o nome do utilizador logado
+$user_name = "Usuário não encontrado";
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
+    $user_id = $_SESSION['user_id'];
+    $user_role = $_SESSION['role'];
+
+    if ($user_role == 'admin') {
+        $sql = "SELECT nome, email FROM administradores WHERE idadministrador = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result_user = $stmt->get_result();
+
+        if ($result_user->num_rows > 0) {
+            $admin = $result_user->fetch_assoc();
+            $user_name = $admin['nome'];
+        }
+    }
 }
 
-$idcandidato = $_SESSION['user_id'];
-
-// Validar ID do emprego
-if (!isset($_GET['emprego_id']) || empty($_GET['emprego_id'])) {
-    die("Erro: ID do emprego não fornecido.");
-}
-
-$idemprego = $_GET['emprego_id'];
-
-// Conectar ao base de dados
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "psiforall";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Erro de conexão: " . $conn->connect_error);
-}
-
-// Verifica se o candidato já se candidatou
-$checkQuery = "SELECT * FROM candidaturas WHERE idcandidato = ? AND idemprego = ?";
-$stmt_check = $conn->prepare($checkQuery);
-$stmt_check->bind_param("ii", $idcandidato, $idemprego);
-$stmt_check->execute();
-$checkResult = $stmt_check->get_result();
-
-if ($checkResult->num_rows > 0) {
-    die("Você já se candidatou para este emprego.");
-}
-
-// Insere a candidatura
-$insertQuery = "INSERT INTO candidaturas (idcandidato, idemprego, data_candidatura) VALUES (?, ?, NOW())";
-$stmt_insert = $conn->prepare($insertQuery);
-$stmt_insert->bind_param("ii", $idcandidato, $idemprego);
-
-if (!$stmt_insert->execute()) {
-    die("Erro ao candidatar-se: " . $stmt_insert->error);
-}
-
-// Recupera dados do emprego
-$empregoQuery = "SELECT titulo FROM empregos WHERE idemprego = ?";
-$stmt_emprego = $conn->prepare($empregoQuery);
-$stmt_emprego->bind_param("i", $idemprego);
-$stmt_emprego->execute();
-$empregoResult = $stmt_emprego->get_result();
-$empregoData = $empregoResult->fetch_assoc();
-$tituloEmprego = $empregoData['titulo'];
-
-// Fecha a conexão com o base de dados
+// Fechar a conexão com o base de dados
 mysqli_close($conn);
 ?>
 
@@ -71,11 +37,12 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Candidatura Realizada</title>
-    <link rel="stylesheet" href="../css/header.css" />
+    <title>Perfil Administrador</title>
     <link rel="stylesheet" href="../css/globals.css" />
+    <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/ListarDados.css" />
     <style>
+        /* Estilos para a página de perfil do administrador */
         body {
             font-family: 'Inria Serif', serif;
             background-color: #FFFFFF; /* Fundo branco */
@@ -91,11 +58,48 @@ mysqli_close($conn);
             background-color: #FFFFFF; /* Fundo branco para o conteúdo */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            text-align: center;
         }
 
-        h2 {
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
             color: #22202A; /* Cor do título */
+        }
+
+        .data-perfil {
+            margin-bottom: 20px;
+        }
+
+        .p-perfil {
+            margin: 8px 0; /* Margem dos parágrafos */
+            color: #473D3B; /* Cor do texto secundário */
+            line-height: 1.6; /* Altura da linha */
+        }
+
+        .button-black, .button-white {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .button-black {
+            background-color: #22202A; /* Cor do botão preto */
+            color: #E5E5EC; /* Cor do texto do botão */
+        }
+
+        .button-white {
+            background-color: #E5E5EC; /* Cor do botão branco */
+            color: #22202A; /* Cor do texto do botão */
+        }
+
+        .button-black:hover {
+            background-color: #7E7D85; /* Cor do botão ao passar o mouse */
+        }
+
+        .button-white:hover {
+            background-color: #D0D0D0; /* Cor do botão ao passar o mouse */
         }
 
         footer {
@@ -136,18 +140,7 @@ mysqli_close($conn);
                 <?php
                 // Exibir os itens do menu com base no tipo de utilizador
                 if (isset($_SESSION['role'])) {
-                    if ($_SESSION['role'] == 'candidato') {
-                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    } elseif ($_SESSION['role'] == 'empregador') {
-                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
-                        echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                        
-                    } elseif ($_SESSION['role'] == 'admin') {
+                    if ($_SESSION['role'] == 'admin') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
@@ -166,14 +159,29 @@ mysqli_close($conn);
 </header>
 
 <main>
-    <h2>Candidatura realizada com sucesso!</h2>
-    <p>Você se candidatou à vaga: <strong><?php echo htmlspecialchars($tituloEmprego); ?></strong>.</p>
-</main>
+    <h1>Perfil do Administrador</h1>
 
+    <div class="data-perfil">
+        <p class="p-perfil"><strong>Nome:</strong> <?= htmlspecialchars($admin['nome']) ?></p>
+        <p class="p-perfil"><strong>Email:</strong> <?= htmlspecialchars($admin['email']) ?></p>
+    </div>
+
+    <div>
+        <button class="button-black" onclick="window.location.href='../php/Logout.php'">Logout</button>
+        <button class="button-white" onclick="confirmarExclusao()">Apagar Conta</button>
+    </div>
+</main>
 
 <footer>
     <p>&copy; 2025 For All. Todos os direitos reservados.</p>
 </footer>
 
+<script>
+    function confirmarExclusao() {
+        if (confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
+            window.location.href = "../php/ApagarContaAdmin.php";
+        }
+    }
+</script>
 </body>
 </html>

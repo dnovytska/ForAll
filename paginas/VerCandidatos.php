@@ -1,12 +1,160 @@
+<?php
+session_start(); // Iniciar sessão para verificar se o utilizador está logado
+include '../php/db.php';  // Arquivo de conexão com a base de dados
+
+// Verificar se o utilizador é admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    // Redireciona para uma página de erro ou login caso o utilizador não seja admin
+    header("Location: login.php");
+    exit;
+}
+
+// Buscar todos os empregos
+$query = "SELECT * FROM empregos";
+$result = mysqli_query($conn, $query);
+
+// Verificar se existem empregos cadastrados
+if (!$result) {
+    die("Erro na consulta: " . mysqli_error($conn));
+}
+
+if (mysqli_num_rows($result) == 0) {
+    $message = "Não há empregos cadastrados.";
+} else {
+    $message = null; // Caso haja resultados, a mensagem é nula
+}
+
+// Recuperar o nome do utilizador logado
+$user_name = "Usuário não encontrado";
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
+    $user_id = $_SESSION['user_id'];
+    $user_role = $_SESSION['role'];
+
+    // Recuperar o nome do utilizador com base no tipo de utilizador
+    if ($user_role == 'candidato') {
+        $sql = "SELECT nome FROM candidatos WHERE idcandidato = ?";
+    } elseif ($user_role == 'empregador') {
+        $sql = "SELECT nome FROM empregadores WHERE idempregador = ?";
+    } elseif ($user_role == 'admin') {
+        $sql = "SELECT nome FROM administradores WHERE idadministrador = ?";
+    }
+
+    if (isset($sql)) {
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result_user = $stmt->get_result();
+
+        if ($result_user->num_rows > 0) {
+            $row = $result_user->fetch_assoc();
+            $user_name = $row['nome'];
+        } else {
+            // Caso o nome do utilizador não seja encontrado
+            $user_name = "Nome não encontrado";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For All</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
-    <link rel="stylesheet" href="../css/header.css" />
+    <title>Lista de Empregos</title>
     <link rel="stylesheet" href="../css/globals.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/ListarDados.css" />
+    <style>
+        /* Estilos para a lista de empregos */
+        body {
+            font-family: 'Inria Serif', serif;
+            background-color: #FFFFFF; /* Fundo branco */
+            margin: 0;
+            padding: 0;
+            color: #22202A; /* Cor principal do texto */
+        }
+
+        main {
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #FFFFFF;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #22202A; /* Cor do título */
+        }
+
+        .job-list {
+            list-style-type: none; /* Remove os marcadores da lista */
+            padding: 0; /* Remove o padding padrão */
+        }
+
+        .job-item {
+            background-color: #E5E5EC; /* Cor de fundo para os itens da lista */
+            margin: 15px 0; /* Espaçamento entre os itens */
+            padding: 20px; /* Espaçamento interno */
+            border-radius: 8px; /* Bordas arredondadas */
+            border: 1px solid #7E7D85; /* Cor da borda */
+            transition: transform 0.2s ease; /* Efeito de transição */
+        }
+
+        .job-item:hover {
+            transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+            box-shadow: 0 4px 8 px rgba(0, 0, 0, 0.1); /* Sombra ao passar o mouse */
+        }
+
+        .job-item h2 {
+            margin: 0 0 10px 0; /* Margem do título */
+            font-size: 1.6em; /* Tamanho da fonte do título */
+            color: #967D60; /* Cor do título */
+        }
+
+        .job-item a {
+            text-decoration: none; /* Remove o sublinhado */
+            color: #22202A; /* Cor do texto do link */
+            transition: color 0.2s ease; /* Efeito de transição na cor */
+        }
+
+        .job-item a:hover {
+            color: #967D60; /* Cor do link ao passar o mouse */
+            text-decoration: underline; /* Sublinha ao passar o mouse */
+        }
+
+        .job-item p {
+            margin: 8px 0; /* Margem dos parágrafos */
+            color: #473D3B; /* Cor do texto secundário */
+            line-height: 1.6; /* Altura da linha */
+        }
+
+        .delete-button {
+            display: inline-block; /* Exibe como bloco inline */
+            margin-top: 15px; /* Margem superior */
+            padding: 8px 20px; /* Padding do botão */
+            background-color: #967D60; /* Cor de fundo do botão */
+            color: #E5E5EC; /* Cor do texto do botão */
+            border-radius: 4px; /* Bordas arredondadas */
+            text-decoration: none; /* Remove o sublinhado */
+            transition: background-color 0.2s ease; /* Efeito de transição na cor de fundo */
+        }
+
+        .delete-button:hover {
+            background-color: #7E6D5A; /* Cor do botão ao passar o mouse */
+            text-decoration: none; /* Remove o sublinhado ao passar o mouse */
+        }
+
+        footer {
+            background-color: #22202A; /* Cor do rodapé */
+            color: #E5E5EC; /* Cor do texto no rodapé */
+            text-align: center; /* Centraliza o texto */
+            padding: 25px; /* Padding do rodapé */
+            margin-top: 40px; /* Margem superior */
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -27,7 +175,7 @@
                     <?php else : ?>
                         <div class="auth-buttons">
                             <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
-                            <button class="login-register" onclick="window.location.href='Registo.html'">Registar-se</button>
+                            <button class="login-register" onclick="window.location.href='Registo.php'">Registar-se</button>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -35,7 +183,7 @@
 
             <div class="rectangle-2">
                 <?php
-                // Exibir os itens do menu com base no tipo de usuário
+                // Exibir os itens do menu com base no tipo de utilizador
                 if (isset($user_role)) {
                     if ($user_role == 'candidato') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
@@ -44,9 +192,9 @@
                     } elseif ($user_role == 'empregador') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                        echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmp regos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
                         echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                     } elseif ($user_role == 'admin') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
@@ -65,56 +213,42 @@
     </div>
 </header>
 
-
-<?php
-session_start();
-include '../php/db.php';  
-
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
-    exit;
-}
-$query = "SELECT * FROM candidatos";
-$result = mysqli_query($conn, $query);
-
-if (mysqli_num_rows($result) == 0) {
-    echo "<p>Não há candidatos cadastrados.</p>";
-    exit;
-}
-?>
-
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lista de Candidatos</title>
-    <link rel="stylesheet" href="../css/globals.css" />
-    <link rel="stylesheet" href="../css/ListarDados.css" />
-</head>
-<body>
-
 <main>
-    <h1>Lista de Candidatos</h1>
+    <h1>Lista de Empregos</h1>
 
-    <ul class="candidate-list">
-        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-            <li class="candidate-item">
-                <h2><a href="DetalhesCandidato.php?id=<?php echo $row['idcandidato']; ?>"><?php echo $row['nome']; ?></a></h2>
-                <p><strong>Email:</strong> <?php echo $row['email']; ?></p>
-                <p><strong>Telefone:</strong> <?php echo $row['telefone']; ?></p>
+    <?php
+    if (isset($message)) {
+        echo "<p>$message</p>";
+    }
 
-                <a href="../php/ApagarCandidato.php?id=<?php echo $row['idcandidato']; ?>" class="delete-button" 
-                   onclick="return confirm('Tem certeza que deseja excluir este candidato?');">Apagar</a>
-            </li>
-        <?php } ?>
-    </ul>
-
+    // Verificação se há resultados e dados a serem exibidos
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <ul class="job-list">
+            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                <li class="job-item">
+                    <h2><a href="DetalhesEmprego.php?id=<?php echo $row['idemprego']; ?>"><?php echo htmlspecialchars($row['titulo']); ?></a></h2>
+                    <p><strong>Responsabilidades:</strong> <?php echo htmlspecialchars($row['responsabilidades']); ?></p>
+                    <p><strong>Competências:</strong> <?php echo htmlspecialchars($row['competencias']); ?></p>
+                    <p><strong>Benefícios:</strong> <?php echo htmlspecialchars($row['beneficios']); ?></p>
+                    <p><strong>Quantidade:</strong> <?php echo htmlspecialchars($row['quantidade']); ?></p>
+                    <a href="ApagarEmprego.php?id=<?php echo $row['idemprego']; ?>" class="delete-button" 
+                       onclick="return confirm('Tem certeza que deseja excluir este emprego?');">Apagar</a>
+                </li>
+            <?php } ?>
+        </ul>
+    <?php 
+    } else {
+        echo "<p>Nenhum emprego encontrado.</p>";
+    }
+    ?>
 </main>
 
-</body>
-</html>
+<footer>
+    <p>&copy; 2025 For All. Todos os direitos reservados.</p>
+</footer>
 
 <?php
+// Fechar a conexão com o base de dados
 mysqli_close($conn);
 ?>

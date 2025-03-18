@@ -2,7 +2,7 @@
 session_start();
 include '../php/db.php';  // Arquivo de conexão com a base de dados
 
-// Verificar se o usuário é admin
+// Verificar se o utilizador é admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit;

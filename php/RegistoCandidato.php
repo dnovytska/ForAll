@@ -1,5 +1,6 @@
 <?php
-require_once "./db.php"; 
+session_start();
+include '../php/db.php'; // Arquivo de conexão com a base de dados
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recebe os dados do formulário
@@ -10,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data_nascimento = $_POST["data_nascimento"];
     $anos_experiencia = $_POST["anos_experiencia"];
     $habilitacoes_academicas = trim($_POST["habilitacoes_academicas"]);
+    $area_id = $_POST["area_id"]; // Recebe a área selecionada
     $is_ativo = 1; // A conta está ativa por padrão
 
     // Validação do e-mail
@@ -56,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Preparar o SQL para inserir os dados no banco de dados
+    // Preparar o SQL para inserir os dados no base de dados
     $sql = "INSERT INTO candidatos (nome, email, telefone, password, data_nascimento, anos_experiencia, habilitacoes_academicas, PDF, is_ativo) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -70,6 +72,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sssssissi", $nome, $email, $telefone, $password_hash, $data_nascimento, $anos_experiencia, $habilitacoes_academicas, $cv_destino, $is_ativo);
 
     if ($stmt->execute()) {
+        // Recuperar o ID do candidato inserido
+        $idcandidato = $stmt->insert_id;
+
+        // Inserir na tabela intermediária candidatos_areas
+        $sql_area = "INSERT INTO candidatos_areas (idcandidato, idarea) VALUES (?, ?)";
+        $stmt_area = $conn->prepare($sql_area);
+        $stmt_area->bind_param("ii", $idcandidato, $area_id);
+        $stmt_area->execute();
+
         // Redirecionar para a página de login após sucesso
         header("Location: ../paginas/Login.php");
         exit;

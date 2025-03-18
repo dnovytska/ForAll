@@ -1,5 +1,5 @@
 <?php
-// Conectar ao banco de dados
+// Conectar ao base de dados
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -22,7 +22,7 @@ $data_nascimento = $_POST['data_nascimento'];
 $anos_expriencia = $_POST['experiencia'];
 $habilitacoes_academicas = $_POST['habilitacoes'];
 
-// Atualizar os dados no banco
+// Atualizar os dados no base
 $sql = "UPDATE candidatos 
         SET nome = ?, email = ?, telefone = ?, data_nascimento = ?, anos_expriencia = ?, habilitacoes_academicas = ?
         WHERE idcandidato = ?";

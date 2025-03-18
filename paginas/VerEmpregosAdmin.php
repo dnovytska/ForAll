@@ -1,10 +1,10 @@
 <?php
-session_start(); // Iniciar sessão para verificar se o usuário está logado
+session_start(); // Iniciar sessão para verificar se o utilizador está logado
 include '../php/db.php';  // Arquivo de conexão com a base de dados
 
-// Verificar se o usuário é admin
+// Verificar se o utilizador é admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    // Redireciona para uma página de erro ou login caso o usuário não seja admin
+    // Redireciona para uma página de erro ou login caso o utilizador não seja admin
     header("Location: login.php");
     exit;
 }
@@ -24,13 +24,13 @@ if (mysqli_num_rows($result) == 0) {
     $message = null; // Caso haja resultados, a mensagem é nula
 }
 
-// Recuperar o nome do usuário logado
+// Recuperar o nome do utilizador logado
 $user_name = "Usuário não encontrado";
 if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
     $user_id = $_SESSION['user_id'];
     $user_role = $_SESSION['role'];
 
-    // Recuperar o nome do usuário com base no tipo de usuário
+    // Recuperar o nome do utilizador com base no tipo de utilizador
     if ($user_role == 'candidato') {
         $sql = "SELECT nome FROM candidatos WHERE idcandidato = ?";
     } elseif ($user_role == 'empregador') {
@@ -49,7 +49,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
             $row = $result_user->fetch_assoc();
             $user_name = $row['nome'];
         } else {
-            // Caso o nome do usuário não seja encontrado
+            // Caso o nome do utilizador não seja encontrado
             $user_name = "Nome não encontrado";
         }
     }
@@ -64,13 +64,12 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
     <title>Lista de Empregos</title>
     <link rel="stylesheet" href="../css/globals.css" />
     <link rel="stylesheet" href="../css/header.css" /><style>
-    /* Estilos para a lista de empregos */
     body {
         font-family: 'Inria Serif', serif;
         background-color: #FFFFFF;
         margin: 0;
         padding: 0;
-        color: #22202A; /* Cor principal do texto */
+        color: #22202A; 
     }
 
     main {
@@ -175,7 +174,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
                     <?php else : ?>
                         <div class="auth-buttons">
                             <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
-                            <button class="login-register" onclick="window.location.href='Registo.html'">Registar-se</button>
+                            <button class="login-register" onclick="window.location.href='Registo.php'">Registar-se</button>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -183,7 +182,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 
             <div class="rectangle-2">
                 <?php
-                // Exibir os itens do menu com base no tipo de usuário
+                // Exibir os itens do menu com base no tipo de utilizador
                 if (isset($user_role)) {
                     if ($user_role == 'candidato') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
@@ -192,9 +191,9 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
                     } elseif ($user_role == 'empregador') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                         echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
                         echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                     } elseif ($user_role == 'admin') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
@@ -246,10 +245,10 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 </main>
 
 <footer>
-    <p>&copy; 2023 For All. Todos os direitos reservados.</p>
+    <p>&copy; 2025 For All. Todos os direitos reservados.</p>
 </footer>
 
 <?php
-// Fechar a conexão com o banco de dados
+// Fechar a conexão com o base de dados
 mysqli_close($conn);
 ?>
