@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif ($role == 'empregador') {
             header("Location: ../paginas/PerfilEmpregador.php?id=" . $_SESSION['user_id']);
         } elseif ($role == 'admin') {
-            header("Location: SobreNos.html");
+            header("Location: ../paginas/ListarCandidaturasAdmin.php");
         }
         exit();
     } else {

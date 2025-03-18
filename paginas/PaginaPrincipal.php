@@ -8,105 +8,205 @@
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/globals.css" />
     <style>
-        .selected {
-            background-color: #333;
-            color: #fff;
+        body {
+            text-align: center;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between; /* Distribui o espaço igualmente entre os elementos */
+            width: 100%;
+            gap: 10px;
+            margin: 0px;
+        }
+
+        .button-container > div {
+            flex: 1; /* Faz as duas colunas ocuparem o mesmo espaço */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+        }
+
+        .button-table {
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .button-table button {
+            flex: 1 1 calc(33.33% - 10px);
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #333;
+            background-color: white; 
+            color: black; 
+            cursor: pointer;
+            transition: 0.3s;
+            width: 80%; 
+        }
+
+        .button-table button:hover {
+            background-color: #ddd;
+        }
+
+        .button-table button.selected {
+            background-color: black; 
+            color: white; 
+        }
+
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .search-button {
+            margin-top: 20px;
+        }
+        .button-procurar{
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="main-container">
-            <div class="slice">
-                <div class="rectangle">
-                    <div class="rectangle-1">
-                        <div class="rh-logo">
-                            <img src="../images/logo.png" alt="Logo">
-                        </div>
-                        <span class="for-all">For all</span>
-                        <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
-                        <div class="auth-buttons">
-                            <button class="login-register">Login</button>
-                            <button class="login-register">Registar-se</button>
-                        </div>
+    <div class="main-container">
+        <div class="slice">
+            <div class="rectangle">
+                <div class="rectangle-1">
+                    <div class="rh-logo">
+                        <img src="../images/logo.png" alt="Logo">
+                    </div>
+                    <span class="for-all">For all</span>
+                    <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
+                    <div class="auth-buttons">
+                        <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
+                        <button class="login-register" onclick="window.location.href='Registo.html'">Registar-se</button>
                     </div>
                 </div>
             </div>
+            <div class="rectangle-2">
+                <div class="menu-item">
+                    <a href="PaginaPrincipal.html">
+                        <img src="../images/circle.png" alt="Circle Icon" />
+                        Página Principal
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="SobreNos.html">
+                        <img src="../images/circle.png" alt="Circle Icon" />
+                        Sobre Nós
+                    </a>
+                </div>
+            </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <main>
         <h1>Procura seu Futuro Emprego!</h1>
-        <form method="POST" action="../php/ProcurarPorAreasELocalizacoes.php">
+        <form id="jobSearchForm" method="POST" action="../php/ProcurarPorAreasELocalizacoes.php">
             <div class="button-container">
-                <h3>Áreas:</h3>
-                <div class="button-table">
-                    <?php
-                    include '../php/db.php'; // Arquivo de conexão com a base de dados
-                    $query = "SELECT idarea, nome FROM areas";  // Alterado para buscar os ids e nomes
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<button type='button' class='button-white' data-id='" . $row['idarea'] . "' data-value='" . $row['nome'] . "'>" . $row['nome'] . "</button>";
-                    }
-                    ?>
+                <div>
+                    <h3>Áreas:</h3>
+                    <div class="button-table" id="areas-container">
+                        <?php
+                        include '../php/db.php'; 
+                        $query = "SELECT idarea, nome FROM areas";  
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<button type='button' class='button-white area-button' data-id='" . $row['idarea'] . "'>" . $row['nome'] . "</button>";
+                        }
+                        ?>
+                        <p id="areaError" class="error-message">Selecione pelo menos uma área.</p>
+                    </div>
                 </div>
-
-                <h3>Localizações:</h3>
-                <div class="button-table">
-                    <?php
-                    $query = "SELECT idlocalizacao, nome FROM localizacoes";  // Alterado para buscar os ids e nomes
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<button type='button' class='button-white' data-id='" . $row['idlocalizacao'] . "' data-value='" . $row['nome'] . "'>" . $row['nome'] . "</button>";
-                    }
-                    mysqli_close($conn);
-                    ?>
+                <div>
+                    <h3>Localizações:</h3>
+                    <div class="button-table" id="localizacoes-container">
+                        <?php
+                        $query = "SELECT idlocalizacao, nome FROM localizacoes";  
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<button type='button' class='button-white localizacao-button' data-id='" . $row['idlocalizacao'] . "'>" . $row['nome'] . "</button>";
+                        }
+                        mysqli_close($conn);
+                        ?>
+                        <p id="locationError" class="error-message">Selecione pelo menos uma localização.</p>
+                    </div>
                 </div>
             </div>
-
             <input type="hidden" name="areas" id="selectedAreas">
             <input type="hidden" name="localizacoes" id="selectedLocations">
-
-            <div>
-                <button type="submit" class="button-black">Procurar</button>
+            <div class="button-procurar" >
+            <button type="submit" class="button-black search-button">Procurar</button>
             </div>
         </form>
     </main>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const buttons = document.querySelectorAll(".button-white");
             let selectedAreas = [];
             let selectedLocations = [];
+            const areaError = document.getElementById("areaError");
+            const locationError = document.getElementById("locationError");
+            const form = document.getElementById("jobSearchForm");
 
-            buttons.forEach(button => {
+            document.querySelectorAll(".area-button").forEach(button => {
                 button.addEventListener("click", function () {
-                    const value = this.getAttribute("data-value");  // Nome da área ou localização
-                    const id = this.getAttribute("data-id");  // ID da área ou localização
-                    const category = this.closest(".button-container").querySelector("h3").innerText;
-
-                    if (category.includes("Localizações")) {
-                        if (selectedLocations.includes(value)) {
-                            selectedLocations = selectedLocations.filter(item => item !== value);
-                            this.classList.remove("selected");
-                        } else {
-                            selectedLocations.push(value);
-                            this.classList.add("selected");
-                        }
+                    const id = this.getAttribute("data-id");
+                    if (selectedAreas.includes(id)) {
+                        selectedAreas = selectedAreas.filter(item => item !== id);
+                        this.classList.remove("selected");
                     } else {
-                        if (selectedAreas.includes(value)) {
-                            selectedAreas = selectedAreas.filter(item => item !== value);
-                            this.classList.remove("selected");
-                        } else {
-                            selectedAreas.push(value);
-                            this.classList.add("selected");
-                        }
+                        selectedAreas.push(id);
+                        this.classList.add("selected");
                     }
-
-                    // Atualiza os campos escondidos com os **nomes** selecionados
                     document.getElementById("selectedAreas").value = selectedAreas.join(",");
-                    document.getElementById("selectedLocations").value = selectedLocations.join(",");
+                    areaError.style.display = "none";
                 });
+            });
+
+            document.querySelectorAll(".localizacao-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    const id = this.getAttribute("data-id");
+                    if (selectedLocations.includes(id)) {
+                        selectedLocations = selectedLocations.filter(item => item !== id);
+                        this.classList.remove("selected");
+                    } else {
+                        selectedLocations.push(id);
+                        this.classList.add("selected");
+                    }
+                    document.getElementById("selectedLocations").value = selectedLocations.join(",");
+                    locationError.style.display = "none";
+                });
+            });
+
+            form.addEventListener("submit", function (event) {
+                let valid = true;
+                if (selectedAreas.length === 0) {
+                    areaError.style.display = "block";
+                    valid = false;
+                }
+                if (selectedLocations.length === 0) {
+                    locationError.style.display = "block";
+                    valid = false;
+                }
+                if (!valid) {
+                    event.preventDefault();
+                }
             });
         });
     </script>

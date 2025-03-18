@@ -66,7 +66,7 @@ $conn->close();
                 </div>
                 <div class="rectangle-2">
                     <div class="menu-item">
-                        <a href="PaginaPrincipal.html">
+                        <a href="PaginaPrincipal.php">
                             <img src="../images/circle.png" alt="Circle Icon" />
                             Página Principal
                         </a>
