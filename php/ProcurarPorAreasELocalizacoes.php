@@ -1,171 +1,148 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For All - Resultados</title>
+    <title>For All</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
+    <link rel="stylesheet" href="../css/SobreNos.css" />
+    <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/globals.css" />
-    <style>
-        body {
-            font-family: 'Inria Serif', serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #333;
-        }
-
-        .job-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .job-item {
-            width: 100%;
-            max-width: 350px;
-            background-color: #fff;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .job-item:hover {
-            transform: scale(1.05);
-        }
-
-        .job-item h3 {
-            font-size: 1.2em;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .job-item p {
-            color: #777;
-            margin-bottom: 10px;
-        }
-
-        .no-results {
-            text-align: center;
-            font-size: 1.2em;
-            color: #777;
-        }
-
-        .button-white {
-            background-color: #fff;
-            border: 2px solid #333;
-            border-radius: 5px;
-            padding: 8px 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .button-white.selected {
-            background-color: #333;
-            color: #fff;
-        }
-
-        .button-white:hover {
-            background-color: #eee;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/ProcurarPorAreasELocalizacoes.css" />
 </head>
 <body>
-
-<main>
-    <h1>Resultados da Procura</h1>
-
+    <header>
+    <div class="main-container">
+        <div class="slice">
+            <div class="rectangle">
+                <div class="rectangle-1">
+                    <div class="rh-logo">
+                        <img src="../images/logo.png" alt="Logo">
+                    </div>
+                    <span class="for-all">For all</span>
+                    <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
+                    <div class="auth-buttons">
+                        <button class="login-register">Login</button>
+                        <button class="login-register">Registar-se</button>
+                    </div>
+                </div>
+            </div>
+            <div class="rectangle-2">
+                <div class="menu-item">
+                    <a href="PaginaPrincipal.html">
+                        <img src="../images/circle.png" alt="Circle Icon" />
+                        Página Principal
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="SobreNos.html">
+                        <img src="../images/circle.png" alt="Circle Icon" />
+                        Sobre Nós
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+    <main>
     <?php
-    include 'db.php';  // Arquivo de conexão com a base de dados
+session_start();
+include 'db.php';
 
-    $areas = isset($_POST['areas']) ? explode(',', $_POST['areas']) : [];
-    $localizacoes = isset($_POST['localizacoes']) ? explode(',', $_POST['localizacoes']) : [];
+// Capturar os IDs enviados pelo formulário
+$areaIds = isset($_POST['areas']) ? explode(',', $_POST['areas']) : [];
+$locationIds = isset($_POST['localizacoes']) ? explode(',', $_POST['localizacoes']) : [];
 
-    // Se houver áreas, buscamos os IDs correspondentes
-    $areaIds = [];
-    if (!empty($areas)) {
-        $areaNames = implode("','", $areas); // Monta uma string com os nomes das áreas
-        $query = "SELECT idarea FROM areas WHERE nome IN ('$areaNames')";
-        $result = mysqli_query($conn, $query);
-        while ($row = mysqli_fetch_assoc($result)) {
-            $areaIds[] = $row['idarea']; // Armazena os IDs das áreas
-        }
-    }
+// Construção da query com filtros
+$query = "SELECT * FROM empregos";
+$conditions = [];
 
-    // Se houver localizações, buscamos os IDs correspondentes
-    $locationIds = [];
-    if (!empty($localizacoes)) {
-        $locationNames = implode("','", $localizacoes); // Monta uma string com os nomes das localizações
-        $query = "SELECT idlocalizacao FROM localizacoes WHERE nome IN ('$locationNames')";
-        $result = mysqli_query($conn, $query);
-        while ($row = mysqli_fetch_assoc($result)) {
-            $locationIds[] = $row['idlocalizacao']; // Armazena os IDs das localizações
-        }
-    }
+if (!empty($areaIds)) {
+    $areaIdsString = implode(",", array_map('intval', $areaIds));
+    $conditions[] = "areas_idarea IN ($areaIdsString)";
+}
 
-    // Agora podemos fazer a consulta usando os IDs
-    $query = "SELECT * FROM empregos WHERE 1=1";
+if (!empty($locationIds)) {
+    $locationIdsString = implode(",", array_map('intval', $locationIds));
+    $conditions[] = "localizacoes_idlocalizacao IN ($locationIdsString)";
+}
 
-    if (!empty($areaIds)) {
-        $areaIdsString = implode(",", $areaIds);
-        $query .= " AND areas_idarea IN ($areaIdsString)";
-    }
+if (!empty($conditions)) {
+    $query .= " WHERE " . implode(" AND ", $conditions);
+}
 
-    if (!empty($locationIds)) {
-        $locationIdsString = implode(",", $locationIds);
-        $query .= " AND localizacoes_idlocalizacao IN ($locationIdsString)";
-    }
+$result = mysqli_query($conn, $query);
 
-    $result = mysqli_query($conn, $query);
+// Exibir resultados
+if (mysqli_num_rows($result) > 0) {
+    echo "<div class='job-list'>";
+    while ($row = mysqli_fetch_assoc($result)) {
+        // Buscar nome da área
+        $areaQuery = "SELECT nome FROM areas WHERE idarea = " . $row['areas_idarea'];
+        $areaResult = mysqli_query($conn, $areaQuery);
+        $area = mysqli_fetch_assoc($areaResult)['nome'] ?? 'Desconhecido';
 
-    // Exibe os resultados em formato de lista de empregos
-    if (mysqli_num_rows($result) > 0) {
-        echo "<div class='job-list'>";
-        while ($row = mysqli_fetch_assoc($result)) {
-            // Buscando nome da área
-            $areaQuery = "SELECT nome FROM areas WHERE idarea = " . $row['areas_idarea'];
-            $areaResult = mysqli_query($conn, $areaQuery);
-            $area = mysqli_fetch_assoc($areaResult)['nome'];
+        // Buscar nome da localização
+        $locationQuery = "SELECT nome FROM localizacoes WHERE idlocalizacao = " . $row['localizacoes_idlocalizacao'];
+        $locationResult = mysqli_query($conn, $locationQuery);
+        $location = mysqli_fetch_assoc($locationResult)['nome'] ?? 'Desconhecido';
 
-            // Buscando nome da localização
-            $locationQuery = "SELECT nome FROM localizacoes WHERE idlocalizacao = " . $row['localizacoes_idlocalizacao'];
-            $locationResult = mysqli_query($conn, $locationQuery);
-            $location = mysqli_fetch_assoc($locationResult)['nome'];
+        // Criando link para a página de detalhes
+        $jobUrl = "../paginas/Emprego.php?id=" . $row['idemprego'];
 
-            // Criando link para a página de detalhes
-            $jobUrl = "Emprego.php?id=" . $row['idemprego'];
+        // Exibir informações do emprego
+        echo "<div class='job-item' onclick='window.location=\"$jobUrl\"'>";
+        echo "<h3>" . $row['titulo'] . "</h3>";
+        echo "<p><strong>Área:</strong> " . $area . "</p>";
+        echo "<p><strong>Localização:</strong> " . $location . "</p>";
 
-            echo "<div class='job-item' onclick='window.location=\"$jobUrl\"'>";
-            echo "<h3>" . $row['titulo'] . "</h3>";
-            echo "<p><strong>Área:</strong> " . $area . "</p>";
-            echo "<p><strong>Localização:</strong> " . $location . "</p>";
+        // Verificando se o usuário está logado
+        if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+            // Verificar se o usuário já se candidatou a este emprego
+            $idcandidato = $_SESSION['user_id'];
+            $idemprego = $row['idemprego'];
+
+            // Verificar se já existe uma candidatura
+            $checkQuery = "SELECT * FROM candidaturas WHERE idcandidato = ? AND idemprego = ?";
+            $stmt = mysqli_prepare($conn, $checkQuery);
+            mysqli_stmt_bind_param($stmt, "ii", $idcandidato, $idemprego);
+            mysqli_stmt_execute($stmt);
+            $checkResult = mysqli_stmt_get_result($stmt);
+
+            if (mysqli_num_rows($checkResult) > 0) {
+                // O candidato já se candidatou a este emprego
+                echo "<div class='apply-button-container'>";
+                echo "<button class='apply-button' disabled>Já se candidatou</button>";
+                echo "</div>";
+            } else {
+                // O candidato ainda não se candidatou
+                echo "<div class='apply-button-container'>";
+                echo "<button class='apply-button' onclick='window.location.href=\"Candidatar.php?emprego_id=" . $row['idemprego'] . "\"'>Candidatar-se</button>";
+                echo "</div>";
+            }
+        } else {
+            // Se o usuário não está logado, redireciona para a página de login
+            echo "<div class='apply-button-container'>";
+            echo "<button class='apply-button' onclick='window.location.href=\"Login.php\"'>Candidatar-se (Necessário Login)</button>";
             echo "</div>";
         }
+
         echo "</div>";
-    } else {
-        echo "<p class='no-results'>Nenhum emprego encontrado com os critérios selecionados.</p>";
     }
+    echo "</div>";
+} else {
+    echo "<p class='no-results'>Nenhum emprego encontrado com os critérios selecionados.</p>";
+}
 
-    mysqli_close($conn); // Fechar a conexão
-    ?>
-</main>
+mysqli_close($conn);
+?>
 
+
+
+
+        <footer>
+        <div class="rectangle-f"></div>
+    </footer>
+    </main>
 </body>
 </html>

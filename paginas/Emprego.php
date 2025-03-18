@@ -21,6 +21,17 @@ if (isset($_GET['id'])) {
     $locationQuery = "SELECT nome FROM localizacoes WHERE idlocalizacao = " . $job['localizacoes_idlocalizacao'];
     $locationResult = mysqli_query($conn, $locationQuery);
     $location = mysqli_fetch_assoc($locationResult)['nome'];
+
+    // Verificar se o usuário já se candidatou a este emprego
+    $alreadyApplied = false;
+    if (isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+        $checkApplicationQuery = "SELECT * FROM candidaturas WHERE idcandidato = $userId AND idemprego = $jobId";
+        $checkApplicationResult = mysqli_query($conn, $checkApplicationQuery);
+        if (mysqli_num_rows($checkApplicationResult) > 0) {
+            $alreadyApplied = true;
+        }
+    }
 } else {
     echo "Emprego não encontrado.";
     exit;
@@ -74,6 +85,11 @@ if (isset($_GET['id'])) {
         .apply-button:hover {
             background-color: #555;
         }
+
+        .apply-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -88,8 +104,15 @@ if (isset($_GET['id'])) {
     </div>
 
     <?php if (isset($_SESSION['user_id'])) { ?>
-        <a href="Candidatar.php?emprego_id=<?php echo $job['idemprego']; ?>" class="apply-button">Candidatar-se</a>
+        <?php if ($alreadyApplied): ?>
+            <!-- Botão desabilitado se já se candidatou -->
+            <button class="apply-button" disabled>Já Candidatado</button>
+        <?php else: ?>
+            <!-- Botão para candidatar-se -->
+            <a href="Candidatar.php?emprego_id=<?php echo $job['idemprego']; ?>" class="apply-button">Candidatar-se</a>
+        <?php endif; ?>
     <?php } else { ?>
+        <!-- Botão de login caso o usuário não esteja logado -->
         <a href="login.php" class="apply-button">Fazer Login para Candidatar-se</a>
     <?php } ?>
 
@@ -97,3 +120,8 @@ if (isset($_GET['id'])) {
 
 </body>
 </html>
+
+<?php
+// Fechar a conexão com o banco de dados
+mysqli_close($conn);
+?>
