@@ -64,7 +64,7 @@ $conn->close();
 
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <div class="auth-buttons">
-                            <button class="user-profile"><?= htmlspecialchars($empregador['nome'] ?? '') ?></button>
+                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
                         </div>
                     <?php else : ?>
                         <div class="auth-buttons">
@@ -77,42 +77,36 @@ $conn->close();
 
             <div class="rectangle-2">
                 <?php
-                if (isset($_SESSION['role'])) {
-                    $conn_menu = new mysqli($servername, $username, $password, $dbname);
-                    
-                    if ($conn_menu->connect_error) {
-                        die("Erro de conexão: " . $conn_menu->connect_error);
+                // Exibir os itens do menu com base no tipo de usuário
+                if (isset($user_role)) {
+                    if ($user_role == 'candidato') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    } elseif ($user_role == 'empregador') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                    } elseif ($user_role == 'admin') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregosAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="VerCandidatos.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidatos</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                     }
-
-                    $sql_menu = "SELECT nome FROM empregadores WHERE idempregador = ?";
-                    $stmt_menu = $conn_menu->prepare($sql_menu);
-                    $stmt_menu->bind_param("i", $_SESSION['user_id']);
-                    $stmt_menu->execute();
-                    $result_menu = $stmt_menu->get_result();
-                    
-                    $user_name = "Usuário não encontrado";
-                    if ($result_menu->num_rows > 0) {
-                        $row_menu = $result_menu->fetch_assoc();
-                        $user_name = $row_menu['nome'];
-                    }
-
-                    $conn_menu->close();
-
-                    if ($_SESSION['role'] == 'empregador') {
-                        echo '
-                        <div class="menu-item"><a href="PaginaPrincipal.html"><img src="../images/circle.png" alt="Circle Icon">Página Principal</a></div>
-                        <div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon">Sobre Nós</a></div>
-                        <div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon">'.htmlspecialchars($user_name).'</a></div>
-                        <div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon">Meus Empregos</a></div>
-                        <div class="menu-item"><a href="notificacoes.html"><img src="../images/circle.png" alt="Circle Icon">Notificações</a></div>
-                        <div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon">Criar Novo Emprego</a></div>';
-                    }
+                } else {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                 }
                 ?>
             </div>
         </div>
     </div>
 </header>
+
 
 <main>
     <h2>Editar Perfil</h2>

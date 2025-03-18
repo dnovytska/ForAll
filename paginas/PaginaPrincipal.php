@@ -3,17 +3,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Verificar se o empregador está logado
-if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || $_SESSION['role'] !== 'empregador') {
-    die("Erro: Acesso não autorizado.");
-}
-
-$idempregador = $_SESSION['user_id'];
-
-if (!filter_var($idempregador, FILTER_VALIDATE_INT)) {
-    die("Erro: ID inválido.");
-}
-
+// Conexão com o banco de dados
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -25,20 +15,36 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Recuperar o nome do empregador
-$sql = "SELECT nome FROM empregadores WHERE idempregador = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $idempregador);
-$stmt->execute();
-$result = $stmt->get_result();
-
+// Inicializar variáveis
 $user_name = "Usuário não encontrado";
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $user_name = $row['nome'];
-}
+$user_role = null;
 
-$conn->close();
+// Verificar se o usuário está logado
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
+    $user_id = $_SESSION['user_id'];
+    $user_role = $_SESSION['role'];
+
+    // Recuperar o nome do usuário com base no tipo de usuário
+    if ($user_role == 'candidato') {
+        $sql = "SELECT nome FROM candidatos WHERE idcandidato = ?";
+    } elseif ($user_role == 'empregador') {
+        $sql = "SELECT nome FROM empregadores WHERE idempregador = ?";
+    } elseif ($user_role == 'admin') {
+        $sql = "SELECT nome FROM administradores WHERE idadmin = ?";
+    }
+
+    if (isset($sql)) {
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $user_name = $row['nome'];
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,73 +70,51 @@ $conn->close();
                     <span class="for-all">For all</span>
                     <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
 
-                    <?php
-                    if (isset($_SESSION['user_id'])) {
-                        echo '<div class="auth-buttons">';
-                        echo '<button class="user-profile">' . htmlspecialchars($user_name) . '</button>';
-                        echo '</div>';
-                    } else {
-                        echo '<div class="auth-buttons">';
-                        echo '<button class="login-register" onclick="window.location.href=\'Login.php\'">Login</button>';
-                        echo '<button class="login-register" onclick="window.location.href=\'Registo.html\'">Registar-se</button>';
-                        echo '</div>';
-                    }
-                    ?>
+                    <?php if (isset($_SESSION['user_id'])) : ?>
+                        <div class="auth-buttons">
+                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
+                        </div>
+                    <?php else : ?>
+                        <div class="auth-buttons">
+                            <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
+                            <button class="login-register" onclick="window.location.href='Registo.html'">Registar-se</button>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
             <div class="rectangle-2">
-            <?php
-            // Verificar o tipo de usuário logado
-            if (isset($_SESSION['role'])) {
-                // Conectar ao banco de dados
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "psiforall";
-
-                // Criar a conexão
-                $conn = new mysqli($servername, $username, $password, $dbname);
-
-                // Verificar se a conexão foi bem-sucedida
-                if ($conn->connect_error) {
-                    die("Erro de conexão: " . $conn->connect_error);
-                }
-
-                // Recuperar o ID do usuário da sessão
-                $user_id = $_SESSION['user_id'];
-
+                <?php
                 // Exibir os itens do menu com base no tipo de usuário
-                if ($_SESSION['role'] == 'candidato') {
-                    echo '<div class="menu-item"><a href="PaginaPrincipal.html"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                if (isset($user_role)) {
+                    if ($user_role == 'candidato') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    } elseif ($user_role == 'empregador') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                    } elseif ($user_role == 'admin') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregosAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="VerCandidatos.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidatos</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    }
+                } else {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                     echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                    echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                } elseif ($_SESSION['role'] == 'empregador') {
-                    echo '<div class="menu-item"><a href="PaginaPrincipal.html"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                    echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                    echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
-                    echo '<div class="menu-item"><a href="notificacoes.html"><img src="../images/circle.png" alt="Circle Icon" />Notificações</a></div>';
-                    echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
-                } elseif ($_SESSION['role'] == 'admin') {
-                    echo '<div class="menu-item"><a href="PaginaPrincipal.html"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                    echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                    echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    echo '<div class="menu-item"><a href="default.php"><img src="../images/circle.png" alt="Circle Icon" />default</a></div>';
                 }
-
-                // Fechar a conexão com o banco de dados
-                $conn->close();
-            } else {
-                // Caso o usuário não esteja logado
-                echo '<div class="menu-item"><a href="PaginaPrincipal.html"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</ a></div>';
-            }
-            ?>
+                ?>
             </div>
         </div>
     </div>
 </header>
+
 
 <main>
     <h1>Procura seu Futuro Emprego!</h1>
@@ -140,7 +124,6 @@ $conn->close();
                 <h3>Áreas:</h3>
                 <div class="button-table" id="areas-container">
                     <?php
-                    include '../php/db.php'; 
                     $query = "SELECT idarea, nome FROM areas";  
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {

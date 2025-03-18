@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
         case 'admin':
             $table = 'administradores';
-            $idField = 'idadmin'; // Verifique se o nome está correto no banco!
+            $idField = 'idadministrador'; // Verifique se o nome está correto no banco!
             break;
         default:
             die("Role inválido.");

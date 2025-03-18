@@ -79,17 +79,29 @@ $conn->close();
 
             <div class="rectangle-2">
                 <?php
-                if (isset($_SESSION['role'])) {
-                    // Lógica para exibir o menu com base no tipo de usuário
-                    if ($_SESSION['role'] == 'empregador') {
-                        echo '
-                        <div class="menu-item"><a href="PaginaPrincipal.html"><img src="../images/circle.png" alt="Circle Icon">Página Principal</a></div>
-                        <div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon">Sobre Nós</a></div>
-                        <div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon">'.htmlspecialchars($user_name).'</a></div>
-                        <div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon">Meus Empregos</a></div>
-                        <div class="menu-item"><a href="notificacoes.html"><img src="../images/circle.png" alt="Circle Icon">Notificações</a></div>
-                        <div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon">Criar Novo Emprego</a></div>';
+                // Exibir os itens do menu com base no tipo de usuário
+                if (isset($user_role)) {
+                    if ($user_role == 'candidato') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    } elseif ($user_role == 'empregador') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                    } elseif ($user_role == 'admin') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregosAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="VerCandidatos.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidatos</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                     }
+                } else {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                 }
                 ?>
             </div>
@@ -97,9 +109,12 @@ $conn->close();
     </div>
 </header>
 
+
 <main>
     <h1>Criar Novo Emprego</h1>
     <form action="../php/GuardarEmprego.php" method="post">
+        <input type="hidden" name="idempregador" value="<?= $idempregador ?>">
+
         <label for="titulo">Título de Emprego</label>
         <input type="text" id="titulo" name="titulo" placeholder="Digite o título do emprego" required />
 
@@ -151,9 +166,6 @@ $conn->close();
 
         <label for="quantidade">Quantidade</label>
         <input type="number" id="quantidade" name="quantidade" placeholder="Digite a quantidade" required />
-
-        <label for="nome-empresa">Nome da Empresa</label>
-        <input type="text" id="nome-empresa" name="nome-empresa" placeholder="Digite o nome da empresa" required />
 
         <button  class="button-black" type="submit">Salvar</button>
         <button class="button-white" type="button" onclick="window.location.href='PaginaPrincipal.php'">Cancelar</button>

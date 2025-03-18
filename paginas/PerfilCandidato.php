@@ -63,13 +63,11 @@ $conn->close();
                     <span class="for-all">For all</span>
                     <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
 
-                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if (isset($_SESSION['user_id'])) : ?>
                         <div class="auth-buttons">
-                            <?php if (isset($_SESSION['username'])): ?>
-                                <button class="user-profile"><?= htmlspecialchars($_SESSION['username']) ?></button>
-                            <?php endif; ?>
+                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
                         </div>
-                    <?php else: ?>
+                    <?php else : ?>
                         <div class="auth-buttons">
                             <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
                             <button class="login-register" onclick="window.location.href='Registo.html'">Registar-se</button>
@@ -80,52 +78,24 @@ $conn->close();
 
             <div class="rectangle-2">
                 <?php
-                if (isset($_SESSION['role'])) {
-                    $conn_menu = new mysqli($servername, $username, $password, $dbname);
-                    if ($conn_menu->connect_error) {
-                        die("Erro de conexão: " . $conn_menu->connect_error);
-                    }
-
-                    $user_id = $_SESSION['user_id'];
-                    $user_name = "Usuário não encontrado";
-                    $sql = "";
-
-                    switch ($_SESSION['role']) {
-                        case 'candidato':
-                            $sql = "SELECT nome FROM candidatos WHERE idcandidato = ?";
-                            break;
-                        case 'empregador':
-                            $sql = "SELECT nome FROM empregadores WHERE idempregador = ?";
-                            break;
-                        case 'admin':
-                            $sql = "SELECT nome FROM administradores WHERE idadmin = ?";
-                            break;
-                    }
-
-                    if (!empty($sql)) {
-                        $stmt = $conn_menu->prepare($sql);
-                        $stmt->bind_param("i", $user_id);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        if ($result->num_rows > 0) {
-                            $row_menu = $result->fetch_assoc();
-                            $user_name = $row_menu['nome'];
-                        }
-                    }
-
-                    $conn_menu->close();
-
-                    // Itens do menu
-                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                    echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                    
-                    if ($_SESSION['role'] == 'candidato') {
+                // Exibir os itens do menu com base no tipo de usuário
+                if (isset($user_role)) {
+                    if ($user_role == 'candidato') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    } elseif ($_SESSION['role'] == 'empregador') {
+                    } elseif ($user_role == 'empregador') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                         echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
                         echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
-                    } elseif ($_SESSION['role'] == 'admin') {
+                    } elseif ($user_role == 'admin') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregosAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="VerCandidatos.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidatos</a></div>';
                         echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                     }
                 } else {
@@ -137,6 +107,7 @@ $conn->close();
         </div>
     </div>
 </header>
+
 
 <main>
     <div>
