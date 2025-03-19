@@ -91,13 +91,6 @@ $conn->close();
             background-color: #D0D0D0; /* Cor do botão ao passar o mouse */
         }
 
-        footer {
-            background-color: #22202A; /* Cor do rodapé */
-            color: #E5E5EC; /* Cor do texto no rodapé */
-            text-align: center; /* Centraliza o texto */
-            padding: 25px; /* Padding do rodapé */
-            margin-top: 40px; /* Margem superior */
-        }
     </style>
 </head>
 <body>
@@ -165,7 +158,6 @@ $conn->close();
     </div>
     <div>
         <button class="button-black" onclick="window.location.href='../php/Logout.php'">Logout</button>
-        <button class="button-white" onclick="confirmarExclusao()">Apagar Conta</button>
     </div>
 </main>
 
@@ -173,12 +165,6 @@ $conn->close();
     <p>&copy; 2023 For All. Todos os direitos reservados.</p>
 </footer>
 
-<script>
-    function confirmarExclusao() {
-        if (confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
-            window.location.href = "../php/ApagarContaEmpregador.php";
-        }
-    }
 </script>
 </body>
 </html>

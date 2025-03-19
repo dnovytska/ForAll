@@ -57,9 +57,6 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
             $user_name = "Nome não encontrado";
         }
     }
-} else {
-    // Caso não haja dados na sessão
-    $message = "Erro ao obter informações do utilizador.";
 }
 ?>
 
@@ -72,6 +69,57 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
     <link rel="stylesheet" href="../css/globals.css" />
     <link rel="stylesheet" href="../css/ListarDados.css" />
     <link rel="stylesheet" href="../css/header.css" />
+    <style>
+        /* Estilos para o layout */
+        body {
+            display: flex;
+            flex-direction: column; /* Alinha os elementos em coluna */
+            min-height: 100vh; /* Garante que o corpo ocupe pelo menos a altura da tela */
+            font-family: 'Inria Serif', serif;
+            background-color: #FFFFFF; /* Fundo branco */
+            margin: 0;
+            padding: 0;
+            color: #22202A; /* Cor principal do texto */
+        }
+
+        main {
+            flex: 1; /* Permite que o main ocupe o espaço restante */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #22202A; /* Cor do título */
+        }
+
+        .candidaturas-table {
+            width: 100%;
+            border-collapse: collapse; /* Remove o espaço entre as bordas das células */
+        }
+
+        .candidaturas-table th, .candidaturas-table td {
+            border: 1px solid #7E7D85; /* Cor da borda */
+            padding: 10px; /* Padding das células */
+            text-align: left; /* Alinhamento do texto */
+        }
+
+        .candidaturas-table th {
+            background-color: #E5E5EC; /* Cor de fundo para o cabeçalho */
+        }
+
+        footer {
+            background-color: #22202A; /* Cor do rodapé */
+            color: #E5E5EC; /* Cor do texto no rodapé */
+            text-align: center; /* Centraliza o texto */
+            padding: 25px; /* Padding do rodapé */
+            margin-top: 40px; /* Margem superior */
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -110,7 +158,6 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
                         echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
                     } elseif ($user_role == 'admin') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
@@ -128,7 +175,6 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
         </div>
     </div>
 </header>
-
 
 <main>
     <h1>Lista de Candidaturas</h1>
@@ -179,7 +225,6 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
     }
     ?>
 </main>
-
 
 <footer>
     <p>&copy; 2025 For All. Todos os direitos reservados.</p>

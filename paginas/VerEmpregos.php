@@ -196,7 +196,7 @@ $conn->close();
                 echo "<div class='job-company'>Responsabilidades: " . htmlspecialchars($row['responsabilidades']) . "</div>";
                 echo "<div class='job-actions'>";
                 echo "<a href='EditarEmprego.php?id=" . $row ['idemprego'] . "'>Editar</a>";
-                echo "<a href='#' class='delete' onclick='confirmarExclusao(" . $row['idemprego'] . ")'>Apagar</a>";
+                echo "<a href='../php/ApagarEmprego.php?id=" . $row ['idemprego'] . "'>Apagar</a>";
                 echo "</div>";
                 echo "</div>";
             }

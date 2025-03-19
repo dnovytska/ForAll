@@ -159,33 +159,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
     <link rel="stylesheet" href="../css/CV.css" />
     <link rel="stylesheet" href="../css/globals.css" />
-    <style>
-        main {
-            padding: 20px;
-            font-family: "Inria Serif", sans-serif;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            margin: 0 auto;
-        }
-        input, textarea, select {
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
     <header>

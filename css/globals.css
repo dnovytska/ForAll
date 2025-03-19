@@ -302,34 +302,6 @@ button {
     line-height: normal;
     margin: 20px;
   }
-  .footer {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    background-color: #22202A;
-    color: #967D60;
-    font-family: "Inria Serif";
-    font-size: 40px;
-    font-weight: 400;
-    width: 100%;
-    height: 100px; /* Ajuste conforme necessário */
-}
-
-.footer-content {
-    display: flex;
-    align-items: center; 
-    gap: 10px; /* Espaço entre a imagem e o texto */
-}
-
-.footer-logo {
-    width: 50px; /* Ajuste conforme necessário */
-    height: auto;
-}
-
-.footer-text {
-    margin: 0; /* Remove margens padrão */
-    white-space: nowrap; /* Evita que o texto quebre */
-}
 
 .logo-container {
     display: flex;
@@ -340,14 +312,4 @@ button {
 .user-profile{
     background-color: #22202A;
     color: #22202a;
-}
-
-footer {
-    background-color: #22202A; /* Cor do rodapé */
-    color: #E5E5EC; /* Cor do texto no rodapé */
-    text-align: center;
-    padding: 25px;
-    margin-top: 40px;
-    position:fixed;
-    bottom:0;
 }
