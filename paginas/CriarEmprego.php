@@ -10,10 +10,12 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || $_SESSION['ro
 
 $idempregador = $_SESSION['user_id'];
 
+// Validar ID
 if (!filter_var($idempregador, FILTER_VALIDATE_INT)) {
     die("Erro: ID inválido.");
 }
 
+// Conectar ao banco de dados
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -50,7 +52,79 @@ $conn->close();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/globals.css" />
-    <link rel="stylesheet" href="../css/CriarEmprego.css" />
+    <style>
+        body {
+            background-color: #FFFFFF;
+            font-family: 'Inria Serif', serif;
+            color: #473D3B;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            margin: 40px;
+        }
+
+        h1 {
+            color: #22202A;
+            font-size: 2.4em;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #967D60;
+            padding-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #7E7D85;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-black {
+            background-color: #22202A;
+            color: #E5E5EC;
+        }
+
+        .button-white {
+            background-color: #E5E5EC;
+            color: #22202A;
+        }
+
+        .button-black:hover {
+            background-color: #7E7D85;
+        }
+
+        .button-white:hover {
+            background-color: #D0D0D0;
+        }
+
+        footer {
+            background-color: #22202A;
+            color: #E5E5EC;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -66,11 +140,11 @@ $conn->close();
 
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <div class="auth-buttons">
-                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
+                            <!-- O botão com o nome do utilizador foi removido -->
                         </div>
                     <?php else : ?>
                         <div class="auth-buttons">
-                            <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
+                            <button class="login-register " onclick="window.location.href='Login.php'">Login</button>
                             <button class="login-register" onclick="window.location.href='Registo.php'">Registar-se</button>
                         </div>
                     <?php endif; ?>
@@ -80,7 +154,8 @@ $conn->close();
             <div class="rectangle-2">
                 <?php
                 // Exibir os itens do menu com base no tipo de utilizador
-                if (isset($user_role)) {
+                if (isset($_SESSION['role'])) {
+                    $user_role = $_SESSION['role'];
                     if ($user_role == 'candidato') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
@@ -109,7 +184,6 @@ $conn->close();
     </div>
 </header>
 
-
 <main>
     <h1>Criar Novo Emprego</h1>
     <form action="../php/GuardarEmprego.php" method="post">
@@ -127,7 +201,7 @@ $conn->close();
         <label for="beneficios">Benefícios</label>
         <input type="text" id="beneficios" name="beneficios" placeholder="Digite os benefícios" required />
 
-        <label for="areas_idarea">Área</label>
+        <label for="areas_idarea ">Área</label>
         <select id="areas_idarea" name="areas_idarea" required>
             <?php
             $conn = new mysqli('localhost', 'root', '', 'psiforall');
@@ -140,7 +214,7 @@ $conn->close();
             } else {
                 echo "<option value=''>Nenhuma área disponível</option>";
             }
-            $conn->close (); 
+            $conn->close(); 
             ?>
         </select>
 
@@ -167,7 +241,7 @@ $conn->close();
         <label for="quantidade">Quantidade</label>
         <input type="number" id="quantidade" name="quantidade" placeholder="Digite a quantidade" required />
 
-        <button  class="button-black" type="submit">Salvar</button>
+        <button class="button-black" type="submit">Salvar</button>
         <button class="button-white" type="button" onclick="window.location.href='PaginaPrincipal.php'">Cancelar</button>
     </form>
 </main>

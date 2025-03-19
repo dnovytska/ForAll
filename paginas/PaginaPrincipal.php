@@ -72,7 +72,6 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <div class="auth-buttons">
-                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
                         </div>
                     <?php else : ?>
                         <div class="auth-buttons">

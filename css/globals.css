@@ -337,3 +337,17 @@ button {
     justify-content: center; /* Centraliza horizontalmente */
     gap: 10px; /* Espaço entre a imagem e o texto */
 }
+.user-profile{
+    background-color: #22202A;
+    color: #22202a;
+}
+
+footer {
+    background-color: #22202A; /* Cor do rodapé */
+    color: #E5E5EC; /* Cor do texto no rodapé */
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    position:fixed;
+    bottom:0;
+}

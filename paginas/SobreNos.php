@@ -138,7 +138,6 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <div class="auth-buttons">
-                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
                         </div>
                     <?php else : ?>
                         <div class="auth-buttons">
@@ -152,18 +151,18 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
             <div class="rectangle-2">
                 <?php
                 // Exibir os itens do menu com base no tipo de utilizador
-                if (isset($user_role)) {
-                    if ($user_role == 'candidato') {
+                if (isset($role)) {
+                    if ($role == 'candidato') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    } elseif ($user_role == 'empregador') {
+                    } elseif ($role == 'empregador') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
                         echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
                         echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    } elseif ($user_role == 'admin') {
+                    } elseif ($role == 'admin') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
@@ -180,7 +179,6 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
         </div>
     </div>
 </header>
-
 
 <main>
     <div class="sobre-nos">
