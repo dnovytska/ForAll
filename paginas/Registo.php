@@ -136,6 +136,19 @@
             }
             ?>
         </select>
+        <label for="localizacao">Selecione Localização:</label>
+        <select name="area_id" id="area" required>
+            <?php
+            // Conectar ao base de dados para buscar áreas
+            include '../php/db.php'; // Conexão com o base de dados
+            $area_query = "SELECT idlocalizacao, nome FROM localizacoes";
+            $area_result = mysqli_query($conn, $area_query);
+            
+            while ($area = mysqli_fetch_assoc($area_result)) {
+                echo '<option value="' . $area['idlocalizacao'] . '">' . htmlspecialchars($area['nome']) . '</option>';
+            }
+            ?>
+        </select>
 
         <label for="cv">Currículo (PDF):</label>
         <input type="file" id="cv" name="cv" accept=".pdf" required>

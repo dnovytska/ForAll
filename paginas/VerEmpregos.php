@@ -3,18 +3,19 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Verificar se o empregador está logado
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'empregador') {
-    header("Location: login.php");
-    exit();
+// Verificar se o utilizador está logado
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || $_SESSION['role'] !== 'empregador') {
+    die("Erro: Acesso não autorizado.");
 }
 
 $idempregador = $_SESSION['user_id'];
 
+// Validar ID
 if (!filter_var($idempregador, FILTER_VALIDATE_INT)) {
     die("Erro: ID inválido.");
 }
 
+// Conectar ao banco de dados
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -54,7 +55,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For All - Lista de Empregos</title>
+    <title>For All - Perfil Empregador</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" />
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/globals.css" />
@@ -141,7 +142,6 @@ $conn->close();
 
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <div class="auth-buttons">
-                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
                         </div>
                     <?php else : ?>
                         <div class="auth-buttons">
@@ -155,7 +155,8 @@ $conn->close();
             <div class="rectangle-2">
                 <?php
                 // Exibir os itens do menu com base no tipo de utilizador
-                if (isset($user_role)) {
+                if (isset($_SESSION['role'])) {
+                    $user_role = $_SESSION['role'];
                     if ($user_role == 'candidato') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
@@ -194,8 +195,8 @@ $conn->close();
                 echo "<div class='job-title'><a href='detalhes_emprego.php?id=" . $row['idemprego'] . "'>" . htmlspecialchars($row['titulo']) . "</a></div>";
                 echo "<div class='job-company'>Responsabilidades: " . htmlspecialchars($row['responsabilidades']) . "</div>";
                 echo "<div class='job-actions'>";
-                echo "<a href='EditarEmprego.php?id=" . $row['idemprego'] . "'>Editar</a>";
-                echo "<a href='#' class='delete' onclick='confirmarExclusao(" . $row['idemprego'] . ")'>Apagar</a>";
+                echo "<a href='EditarEmprego.php?id=" . $row ['idemprego'] . "'>Editar</a>";
+                echo "<a href='../php/ApagarEmprego.php?id=" . $row ['idemprego'] . "'>Apagar</a>";
                 echo "</div>";
                 echo "</div>";
             }

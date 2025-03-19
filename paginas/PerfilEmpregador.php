@@ -1,9 +1,8 @@
 <?php
 session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+include '../php/db.php'; // Arquivo de conexão com a base de dados
 
-// Verificar se o empregador está logado
+// Verificar se o utilizador está logado
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || $_SESSION['role'] !== 'empregador') {
     die("Erro: Acesso não autorizado.");
 }
@@ -13,17 +12,6 @@ $idempregador = $_SESSION['user_id'];
 // Validar ID
 if (!filter_var($idempregador, FILTER_VALIDATE_INT)) {
     die("Erro: ID inválido.");
-}
-
-// Configuração do base
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "psiforall";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Erro de conexão: " . $conn->connect_error);
 }
 
 // Buscar dados do empregador (Consulta principal)
@@ -42,7 +30,7 @@ $conn->close();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,6 +39,59 @@ $conn->close();
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/globals.css" />
     <link rel="stylesheet" href="../css/PerfilEmpregador.css" />
+    <style>
+        /* Estilos para a página de perfil do empregador */
+        body {
+            font-family: 'Inria Serif', serif;
+            background-color: #FFFFFF; /* Fundo branco */
+            margin: 0;
+            padding: 0;
+            color: #22202A; /* Cor principal do texto */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #22202A; /* Cor do título */
+        }
+
+        .data-perfil {
+            margin-bottom: 20px;
+        }
+
+        .p-perfil {
+            margin: 8px 0; /* Margem dos parágrafos */
+            color: #473D3B; /* Cor do texto secundário */
+            line-height: 1.6; /* Altura da linha */
+        }
+
+        .button-black, .button-white {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .button-black {
+            background-color: #22202A; /* Cor do botão preto */
+            color: #E5E5EC; /* Cor do texto do botão */
+        }
+
+        .button-white {
+            background-color: #E5E5EC; /* Cor do botão branco */
+            color: #22202A; /* Cor do texto do botão */
+        }
+
+        .button-black:hover {
+            background-color: #7E7D85; /* Cor do botão ao passar o mouse */
+        }
+
+        .button-white:hover {
+            background-color: #D0D0D0; /* Cor do botão ao passar o mouse */
+        }
+
+    </style>
 </head>
 <body>
 <header>
@@ -79,18 +120,18 @@ $conn->close();
             <div class="rectangle-2">
                 <?php
                 // Exibir os itens do menu com base no tipo de utilizador
-                if (isset($user_role)) {
-                    if ($user_role == 'candidato') {
+                if (isset($_SESSION['role'])) {
+                    if ($_SESSION['role'] == 'candidato') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    } elseif ($user_role == 'empregador') {
+                    } elseif ($_SESSION['role'] == 'empregador') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
                         echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    } elseif ($user_role == 'admin') {
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($empregador['nome']) . '</a></div>';
+                    } elseif ($_SESSION['role'] == 'admin') {
                         echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
                         echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
                         echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
@@ -108,35 +149,22 @@ $conn->close();
     </div>
 </header>
 
-
 <main>
-    <div>
-        <h1>Bem-vindo, <?= htmlspecialchars($empregador['nome']) ?></h1>
-        <button class="button-black" onclick="window.location.href='EditarPerfilEmpregador.php'">Editar Perfil</button>
+    <h1>Bem-vindo, <?= htmlspecialchars($empregador['nome']) ?></h1>
+    <div class="data-perfil">
+        <p class="p-perfil"><strong>Empregador:</strong> <?= htmlspecialchars($empregador['nome']) ?></p>
+        <p class="p-perfil"><strong>Email:</strong> <?= htmlspecialchars($empregador['email']) ?></p>
+        <p class="p-perfil"><strong>Telefone:</strong> <?= htmlspecialchars($empregador['telefone']) ?></p>
     </div>
     <div>
-        <div class="data-perfil">
-            <p class="p-perfil"><strong>Empregador:</strong> <?= htmlspecialchars($empregador['nome']) ?></p>
-            <p class="p-perfil"><strong>Email:</strong> <?= htmlspecialchars($empregador['email']) ?></p>
-            <p class="p-perfil"><strong>Telefone:</strong> <?= htmlspecialchars($empregador['telefone']) ?></p>
-        </div>
-        <div>
-            <button class="button-white" onclick="window.location.href='../php/Logout.php'">Logout</button>
-            <button class="button-black" onclick="confirmarExclusao()">Apagar Conta</button>
-        </div>
+        <button class="button-black" onclick="window.location.href='../php/Logout.php'">Logout</button>
     </div>
 </main>
 
 <footer>
-    <p>&copy; 2025 For All. Todos os direitos reservados.</p>
+    <p>&copy; 2023 For All. Todos os direitos reservados.</p>
 </footer>
 
-<script>
-    function confirmarExclusao() {
-        if (confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
-            window.location.href = "../php/ApagarContaEmpregador.php";
-        }
-    }
 </script>
 </body>
 </html>

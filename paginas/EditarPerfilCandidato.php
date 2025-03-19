@@ -122,14 +122,8 @@ $conn->close();
             <label for="data_nascimento">Data de Nascimento:</label>
             <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo $row['data_nascimento']; ?>" required>
             
-            <label for="habilitacoes">Habilitações Acadêmicas:</label>
-            <select id="habilitacoes" name="habilitacoes">
-                <option value="Ensino Médio" <?php if ($row['habilitacoes_academicas'] == 'Ensino Médio') echo 'selected'; ?>>Ensino Médio</option>
-                <option value="Graduação" <?php if ($row['habilitacoes_academicas'] == 'Graduação') echo 'selected'; ?>>Graduação</option>
-                <option value="Pós-graduação" <?php if ($row['habilitacoes_academicas'] == 'Pós-graduação') echo 'selected'; ?>>Pós-graduação</option>
-                <option value="Mestrado" <?php if ($row['habilitacoes_academicas'] == 'Mestrado') echo 'selected'; ?>>Mestrado</option>
-                <option value="Doutorado" <?php if ($row['habilitacoes_academicas'] == 'Doutorado') echo 'selected'; ?>>Doutorado</option>
-            </select>
+            <label for="habilitacoes_academicas">Habilitações Acadêmicas:</label>
+            <input type="habilitacoes_academicas" id="habilitacoes_academicas" name="habilitacoes_academicas" value="<?php echo htmlspecialchars($row['habilitacoes_academicas']); ?>" required>
             
             <label for="experiencia">Anos de Experiência:</label>
             <input type="number" id="experiencia" name="experiencia" value="<?php echo $row['anos_experiencia']; ?>" required>

@@ -108,6 +108,8 @@ mysqli_close($conn);
             text-align: center;
             padding: 25px;
             margin-top: 40px;
+            position:fixed;
+            bottom:0;
         }
     </style>
 </head>
@@ -125,7 +127,6 @@ mysqli_close($conn);
 
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <div class="auth-buttons">
-                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
                         </div>
                     <?php else : ?>
                         <div class="auth-buttons">
@@ -168,7 +169,6 @@ mysqli_close($conn);
 
     <div>
         <button class="button-black" onclick="window.location.href='../php/Logout.php'">Logout</button>
-        <button class="button-white" onclick="confirmarExclusao()">Apagar Conta</button>
     </div>
 </main>
 
@@ -176,12 +176,5 @@ mysqli_close($conn);
     <p>&copy; 2025 For All. Todos os direitos reservados.</p>
 </footer>
 
-<script>
-    function confirmarExclusao() {
-        if (confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
-            window.location.href = "../php/ApagarContaAdmin.php";
-        }
-    }
-</script>
 </body>
 </html>

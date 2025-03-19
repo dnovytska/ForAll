@@ -302,38 +302,14 @@ button {
     line-height: normal;
     margin: 20px;
   }
-  .footer {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    background-color: #22202A;
-    color: #967D60;
-    font-family: "Inria Serif";
-    font-size: 40px;
-    font-weight: 400;
-    width: 100%;
-    height: 100px; /* Ajuste conforme necessário */
-}
-
-.footer-content {
-    display: flex;
-    align-items: center; 
-    gap: 10px; /* Espaço entre a imagem e o texto */
-}
-
-.footer-logo {
-    width: 50px; /* Ajuste conforme necessário */
-    height: auto;
-}
-
-.footer-text {
-    margin: 0; /* Remove margens padrão */
-    white-space: nowrap; /* Evita que o texto quebre */
-}
 
 .logo-container {
     display: flex;
     align-items: center; /* Centraliza verticalmente */
     justify-content: center; /* Centraliza horizontalmente */
     gap: 10px; /* Espaço entre a imagem e o texto */
+}
+.user-profile{
+    background-color: #22202A;
+    color: #22202a;
 }
