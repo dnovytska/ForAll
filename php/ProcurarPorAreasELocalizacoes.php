@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/ProcurarPorAreasELocalizacoes.css" />
 </head>
 <body>
-    <header>
+<header>
     <div class="main-container">
         <div class="slice">
             <div class="rectangle">
@@ -21,29 +21,53 @@
                     </div>
                     <span class="for-all">For all</span>
                     <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
-                    <div class="auth-buttons">
-                        <button class="login-register">Login</button>
-                        <button class="login-register">Registar-se</button>
-                    </div>
+
+                    <?php if (isset($_SESSION['user_id'])) : ?>
+                        <div class="auth-buttons">
+                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
+                        </div>
+                    <?php else : ?>
+                        <div class="auth-buttons">
+                            <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
+                            <button class="login-register" onclick="window.location.href='Registo.php'">Registar-se</button>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
+
             <div class="rectangle-2">
-                <div class="menu-item">
-                    <a href="PaginaPrincipal.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Página Principal
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a href="SobreNos.html">
-                        <img src="../images/circle.png" alt="Circle Icon" />
-                        Sobre Nós
-                    </a>
-                </div>
+                <?php
+                // Exibir os itens do menu com base no tipo de utilizador
+                if (isset($user_role)) {
+                    if ($user_role == 'candidato') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    } elseif ($user_role == 'empregador') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="notificacoes.html"><img src="../images/circle.png" alt="Circle Icon" />Notificações</a></div>';
+                        echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    } elseif ($user_role == 'admin') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregosAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="VerCandidatos.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidatos</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    }
+                } else {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                }
+                ?>
             </div>
         </div>
     </div>
 </header>
+
     <main>
     <?php
 session_start();
@@ -96,9 +120,9 @@ if (mysqli_num_rows($result) > 0) {
         echo "<p><strong>Área:</strong> " . $area . "</p>";
         echo "<p><strong>Localização:</strong> " . $location . "</p>";
 
-        // Verificando se o usuário está logado
+        // Verificando se o utilizador está logado
         if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
-            // Verificar se o usuário já se candidatou a este emprego
+            // Verificar se o utilizador já se candidatou a este emprego
             $idcandidato = $_SESSION['user_id'];
             $idemprego = $row['idemprego'];
 
@@ -121,7 +145,7 @@ if (mysqli_num_rows($result) > 0) {
                 echo "</div>";
             }
         } else {
-            // Se o usuário não está logado, redireciona para a página de login
+            // Se o utilizador não está logado, redireciona para a página de login
             echo "<div class='apply-button-container'>";
             echo "<button class='apply-button' onclick='window.location.href=\"Login.php\"'>Candidatar-se (Necessário Login)</button>";
             echo "</div>";
@@ -140,9 +164,9 @@ mysqli_close($conn);
 
 
 
-        <footer>
-        <div class="rectangle-f"></div>
-    </footer>
+<footer>
+    <p>&copy; 2025 For All. Todos os direitos reservados.</p>
+</footer>
     </main>
 </body>
 </html>

@@ -6,6 +6,75 @@ body {
     padding: 0;
 }
 
+header {
+    background-color: #22202A; /* Cor do cabeçalho */
+    color: #E5E5EC; /* Cor do texto no cabeçalho */
+    padding: 20px;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.slice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rectangle {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.rectangle-1 {
+    display: flex;
+    align-items: center;
+}
+
+.rh-logo img {
+    height: 50px;
+}
+
+.for-all {
+    font-size: 1.5em;
+    margin-left: 10px;
+    color: #E5E5EC; /* Cor do texto */
+}
+
+.gestao-recursos-humanos {
+    font-size: 1em;
+    margin-left: 10px;
+    color: #E5E5EC; /* Cor do texto */
+}
+
+.auth-buttons {
+    margin-left: auto;
+}
+
+.user-profile {
+    background: none;
+    border: none;
+    color: #E5E5EC; /* Cor do texto */
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.menu-item {
+    margin: 0 10px;
+}
+
+.menu-item a {
+    color: #E5E5EC; /* Cor do texto */
+    text-decoration: none;
+}
+
+.menu-item a:hover {
+    text-decoration: underline;
+}
+
 main {
     max-width: 900px;
     margin: 20px auto;

@@ -1,5 +1,7 @@
 <?php
 session_start();
+error_reporting(E_ALL); // Ativar relatório de erros
+ini_set('display_errors', 1); // Mostrar erros
 
 $servername = "localhost";
 $username = "root";
@@ -18,52 +20,73 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $role = $_POST['role'];
 
     if (empty($role)) {
-        echo "Por favor, selecione um tipo de utilizador.";
-        exit();
+        die("Por favor, selecione um tipo de utilizador.");
     }
 
+    // Definir tabela e campo de ID conforme o role
     $table = '';
-    $idField = ''; // Para armazenar o campo do ID
-    if ($role == 'candidato') {
-        $table = 'candidatos';
-        $idField = 'idcandidato'; // Coluna correta para 'candidato'
-    } elseif ($role == 'empregador') {
-        $table = 'empregadores';
-        $idField = 'idempregador'; // Coluna correta para 'empregador'
-    } elseif ($role == 'admin') {
-        $table = 'administradores';
-        $idField = 'idadministrador'; // Coluna correta para 'admin'
-    } else {
-        echo "Role inválido.";
-        exit();
+    $idField = '';
+    switch ($role) {
+        case 'candidato':
+            $table = 'candidatos';
+            $idField = 'idcandidato';
+            break;
+        case 'empregador':
+            $table = 'empregadores';
+            $idField = 'idempregador';
+            break;
+        case 'admin':
+            $table = 'administradores';
+            $idField = 'idadministrador'; // Verifique se o nome está correto no base!
+            break;
+        default:
+            die("Role inválido.");
     }
 
-    // Preparar a consulta
-    $sql = "SELECT * FROM $table WHERE email = ? AND password = ?";
+    // Buscar utilizador pelo email
+    $sql = "SELECT $idField, password, nome FROM $table WHERE email = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
+    // Verifica se o utilizador foi encontrado
+    if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
         
-        // Armazenar os dados do usuário e ID na sessão
-        $_SESSION['user'] = $user;
-        $_SESSION['user_id'] = $user[$idField];  // Atribui o ID correto conforme o tipo de usuário
-        $_SESSION['role'] = $role;
+        // Verificar a senha com o hash apenas para candidatos
+        if ($role === 'candidato') {
+            if (!password_verify($password, $user['password'])) {
+                die("Credenciais inválidas."); // Mensagem genérica
+            }
+        } else {
+            // Para empregador e admin, verificar se a senha é igual (sem hash)
+            if ($user['password'] !== $password) {
+                die("Credenciais inválidas."); // Mensagem genérica
+            }
+        }
 
-        // Redireciona para a página apropriada
-        if ($role == 'candidato') {
-            header("Location: ../paginas/PerfilCandidato.php?id=" . $_SESSION['user_id']);
-        } elseif ($role == 'empregador') {
-            header("Location: ../paginas/PerfilEmpregador.php?id=" . $_SESSION['user_id']);
-        } elseif ($role == 'admin') {
-            header("Location: ../paginas/ListarCandidaturasAdmin.php");
+        // Se a autenticação for bem-sucedida
+        $_SESSION['user_id'] = $user[$idField];
+        $_SESSION['role'] = $role;
+        $_SESSION['username'] = $user['nome'];
+
+        // Redirecionamento
+        switch ($role) {
+            case 'candidato':
+                header("Location: ../paginas/PerfilCandidato.php");
+                break;
+            case 'empregador':
+                header("Location: ../paginas/PerfilEmpregador.php");
+                break;
+            case 'admin':
+                header("Location: ../paginas/ListarCandidaturasAdmin.php");
+                break;
         }
         exit();
     } else {
-        echo "Credenciais inválidas.";
+        // Mensagem de erro se o utilizador não for encontrado
+        die("Usuário não encontrado."); // Mensagem de erro
     }
 }
 ?>

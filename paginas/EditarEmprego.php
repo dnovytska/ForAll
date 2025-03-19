@@ -10,54 +10,62 @@
     <link rel="stylesheet" href="../css/globals.css" />
 </head>
 <body>
-    <header>
-        <div class="main-container">
-            <div class="slice">
-                <div class="rectangle">
-                    <div class="rectangle-1">
-                        <div class="rh-logo">
-                            <img src="../images/logo.png" alt="Logo">
+<header>
+    <div class="main-container">
+        <div class="slice">
+            <div class="rectangle">
+                <div class="rectangle-1">
+                    <div class="rh-logo">
+                        <img src="../images/logo.png" alt="Logo">
+                    </div>
+                    <span class="for-all">For all</span>
+                    <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
+
+                    <?php if (isset($_SESSION['user_id'])) : ?>
+                        <div class="auth-buttons">
+                            <button class="user-profile"><?= htmlspecialchars($user_name) ?></button>
                         </div>
-                        <span class="for-all">For all</span>
-                        <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
-                    </div>
-                </div>
-                <div class="rectangle-2">
-                    <div class="menu-item">
-                        <a href="PaginaPrincipal.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Página Principal
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="VerEmpregos.php">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Meus Empregos
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="notificacoes.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Notificações
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="SobreNos.html">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Sobre Nós
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        <a href="CriarEmprego.php">
-                            <img src="../images/circle.png" alt="Circle Icon" />
-                            Criar Novo Emprego
-                        </a>
-                    </div>
-                    <span class="username">Username</span>
+                    <?php else : ?>
+                        <div class="auth-buttons">
+                            <button class="login-register" onclick="window.location.href='Login.php'">Login</button>
+                            <button class="login-register" onclick="window.location.href='Registo.php'">Registar-se</button>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
+
+            <div class="rectangle-2">
+                <?php
+                // Exibir os itens do menu com base no tipo de utilizador
+                if (isset($user_role)) {
+                    if ($user_role == 'candidato') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    } elseif ($user_role == 'empregador') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilEmpregador.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
+                    } elseif ($user_role == 'admin') {
+                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                        echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
+                        echo '<div class="menu-item"><a href="VerEmpregosAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Empregos</a></div>';
+                        echo '<div class="menu-item"><a href="VerCandidatos.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidatos</a></div>';
+                        echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
+                    }
+                } else {
+                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
+                    echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
+                }
+                ?>
+            </div>
         </div>
-    </header>
+    </div>
+</header>
+
 <body>
 <?php
 $servername = "localhost";
@@ -224,8 +232,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </main>
     <?php $conn->close(); ?>
-</body>
-</html>
-
+    
+<footer>
+    <p>&copy; 2025 For All. Todos os direitos reservados.</p>
+</footer>
 </body>
 </html>
