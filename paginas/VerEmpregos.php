@@ -192,7 +192,7 @@ $conn->close();
         if ($result_jobs->num_rows > 0) {
             while ($row = $result_jobs->fetch_assoc()) {
                 echo "<div class='job-listing'>";
-                echo "<div class='job-title'><a href='detalhes_emprego.php?id=" . $row['idemprego'] . "'>" . htmlspecialchars($row['titulo']) . "</a></div>";
+                echo "<div class='job-title'><a href='Emprego.php?id=" . $row['idemprego'] . "'>" . htmlspecialchars($row['titulo']) . "</a></div>";
                 echo "<div class='job-company'>Responsabilidades: " . htmlspecialchars($row['responsabilidades']) . "</div>";
                 echo "<div class='job-actions'>";
                 echo "<a href='EditarEmprego.php?id=" . $row ['idemprego'] . "'>Editar</a>";

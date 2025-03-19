@@ -14,6 +14,9 @@ if ($_SESSION['role'] !== 'candidato') {
 
 $idcandidato = $_SESSION['user_id'];
 
+// Recuperar o nome do usuário
+$user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Usuário';
+
 // Validar ID do emprego
 if (!isset($_GET['emprego_id']) || empty($_GET['emprego_id'])) {
     die("Erro: ID do emprego não fornecido.");
@@ -31,6 +34,18 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
+}
+
+// Buscar o nome do usuário logado se não estiver na sessão
+if (!isset($_SESSION['user_name'])) {
+    $query = "SELECT nome FROM candidatos WHERE idcandidato = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user_data = $result->fetch_assoc();
+    $user_name = $user_data['nome'] ?? 'Usuário';
+    $stmt->close();
 }
 
 // Verifica se o candidato já se candidatou
@@ -78,29 +93,29 @@ mysqli_close($conn);
     <style>
         body {
             font-family: 'Inria Serif', serif;
-            background-color: #FFFFFF; /* Fundo branco */
+            background-color: #FFFFFF;
             margin: 0;
             padding: 0;
-            color: #22202A; /* Cor principal do texto */
+            color: #22202A;
         }
 
         main {
             max-width: 900px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #FFFFFF; /* Fundo branco para o conteúdo */
+            background-color: #FFFFFF;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             text-align: center;
         }
 
         h2 {
-            color: #22202A; /* Cor do título */
+            color: #22202A;
         }
 
         footer {
-            background-color: #22202A; /* Cor do rodapé */
-            color: #E5E5EC; /* Cor do texto no rodapé */
+            background-color: #22202A;
+            color: #E5E5EC;
             text-align: center;
             padding: 25px;
             margin-top: 40px;
@@ -118,6 +133,8 @@ mysqli_close($conn);
                     </div>
                     <span class="for-all">For all</span>
                     <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
+                    <div class="menu-item"><a href="PaginaPrincipal.php">Página Principal</a></div>
+                    <div class="menu-item"><a href="SobreNos.php">Sobre Nós</a></div>
 
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <div class="auth-buttons">
@@ -130,35 +147,6 @@ mysqli_close($conn);
                     <?php endif; ?>
                 </div>
             </div>
-
-            <div class="rectangle-2">
-                <?php
-                // Exibir os itens do menu com base no tipo de utilizador
-                if (isset($_SESSION['role'])) {
-                    if ($_SESSION['role'] == 'candidato') {
-                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilCandidato.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    } elseif ($_SESSION['role'] == 'empregador') {
-                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="VerEmpregos.php"><img src="../images/circle.png" alt="Circle Icon" />Meus Empregos</a></div>';
-                        echo '<div class="menu-item"><a href="CriarEmprego.php"><img src="../images/circle.png" alt="Circle Icon" />Criar Novo Emprego</a></div>';
-                        
-                    } elseif ($_SESSION['role'] == 'admin') {
-                        echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                        echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                        echo '<div class="menu-item"><a href="ListarCandidaturasAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidaturas</a></div>';
-                        echo '<div class="menu-item"><a href="VerEmpregosAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Empregos</a></div>';
-                        echo '<div class="menu-item"><a href="VerCandidatos.php"><img src="../images/circle.png" alt="Circle Icon" />Listar Candidatos</a></div>';
-                        echo '<div class="menu-item"><a href="PerfilAdmin.php"><img src="../images/circle.png" alt="Circle Icon" />' . htmlspecialchars($user_name) . '</a></div>';
-                    }
-                } else {
-                    echo '<div class="menu-item"><a href="PaginaPrincipal.php"><img src="../images/circle.png" alt="Circle Icon" />Página Principal</a></div>';
-                    echo '<div class="menu-item"><a href="SobreNos.php"><img src="../images/circle.png" alt="Circle Icon" />Sobre Nós</a></div>';
-                }
-                ?>
-            </div>
         </div>
     </div>
 </header>
@@ -167,7 +155,6 @@ mysqli_close($conn);
     <h2>Candidatura realizada com sucesso!</h2>
     <p>Você se candidatou à vaga: <strong><?php echo htmlspecialchars($tituloEmprego); ?></strong>.</p>
 </main>
-
 
 <footer>
     <p>&copy; 2025 For All. Todos os direitos reservados.</p>
