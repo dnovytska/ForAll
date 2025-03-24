@@ -110,6 +110,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 
         .candidaturas-table th {
             background-color: #E5E5EC; /* Cor de fundo para o cabeçalho */
+            color: #22202A;
         }
 
         footer {
@@ -118,6 +119,9 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
             text-align: center; /* Centraliza o texto */
             padding: 25px; /* Padding do rodapé */
             margin-top: 40px; /* Margem superior */
+        }
+        .th-black{
+            color: #22202A;
         }
     </style>
 </head>

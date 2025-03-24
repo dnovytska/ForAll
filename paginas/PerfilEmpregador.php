@@ -151,6 +151,7 @@ $conn->close();
 
 <main>
     <h1>Bem-vindo, <?= htmlspecialchars($empregador['nome']) ?></h1>
+    <button class="button-black" onclick="window.location.href='../paginas/EditarPerfilEmpregador.php'">Editar</button>
     <div class="data-perfil">
         <p class="p-perfil"><strong>Empregador:</strong> <?= htmlspecialchars($empregador['nome']) ?></p>
         <p class="p-perfil"><strong>Email:</strong> <?= htmlspecialchars($empregador['email']) ?></p>
