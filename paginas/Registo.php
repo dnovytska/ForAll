@@ -75,8 +75,8 @@
                     <span class="gestao-recursos-humanos">Gestão de Recursos Humanos</span>
 
                     <div class="auth-buttons">
-                        <a href="logincandidato.html"><button class="login-register">Login</button></a>
-                        <a href="register_candidato.html"><button class="login-register">Registar-se</button></a>
+                        <a href="Login.php"><button class="login-register">Login</button></a>
+                        <a href="Registo.php"><button class="login-register">Registar-se</button></a>
                     </div>
                 </div>
             </div>

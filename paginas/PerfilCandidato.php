@@ -122,7 +122,7 @@ $conn->close();
         </div>
         <div>
             <button class="button-white" onclick="window.location.href='../php/Logout.php'">Logout</button>
-            <button class="button-black" onclick="confirmarExclusao()">Apagar Conta</button>
+            
         </div>
     </div>
 <footer>
@@ -133,7 +133,7 @@ $conn->close();
 <script>
     function confirmarExclusao() {
         if (confirm("Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.")) {
-            window.location.href = "../php/ApagarContaCandidato.php";
+            window.location.href = "../php/ApagarCandidato.php";
         }
     }
 </script>

@@ -102,15 +102,6 @@ mysqli_close($conn);
             background-color: #D0D0D0; /* Cor do botão ao passar o mouse */
         }
 
-        footer {
-            background-color: #22202A; /* Cor do rodapé */
-            color: #E5E5EC; /* Cor do texto no rodapé */
-            text-align: center;
-            padding: 25px;
-            margin-top: 40px;
-            position:fixed;
-            bottom:0;
-        }
     </style>
 </head>
 <body>
